@@ -61,13 +61,7 @@ public class GestionTemperaturas {
 		Scanner sc = new Scanner(System.in);
 		Ciudad ciudad = new Ciudad();
 
-		System.out.println("Introduce el nombre de la ciudad: ");
-		ciudad.setNombre(sc.nextLine());
-
-		System.out.println("Introduce la temperatura: ");
-		ciudad.setTemperatura(Double.parseDouble(sc.nextLine()));
-
-		temperaturas.add(ciudad);
+		existeCiudad(temperaturas);
 
 	}
 
@@ -75,9 +69,9 @@ public class GestionTemperaturas {
 
 		double tempMedia = 0;
 
-		for (int i = 0; i < temperaturas.size(); i++) {
+		for (Ciudad elemento : temperaturas) {
 
-			tempMedia += temperaturas.get(i).getTemperatura();
+			tempMedia += elemento.getTemperatura();
 		}
 
 		System.out.println("La temperatura media es de " + (tempMedia / temperaturas.size() + " grados."));
@@ -93,18 +87,18 @@ public class GestionTemperaturas {
 		String ciudadTempMin = "";
 		String ciudadTempMax = "";
 
-		for (int i = 0; i < temperaturas.size(); i++) {
+		for (Ciudad elemento : temperaturas) {
 
-			if (temperaturas.get(i).getTemperatura() < min) {
+			if (elemento.getTemperatura() < min) {
 
-				min = temperaturas.get(i).getTemperatura();
-				ciudadTempMin = temperaturas.get(i).getNombre();
+				min = elemento.getTemperatura();
+				ciudadTempMin = elemento.getNombre();
 			}
 
-			if (temperaturas.get(i).getTemperatura() > max) {
+			if (elemento.getTemperatura() > max) {
 
-				max = temperaturas.get(i).getTemperatura();
-				ciudadTempMax = temperaturas.get(i).getNombre();
+				max = elemento.getTemperatura();
+				ciudadTempMax = elemento.getNombre();
 			}
 		}
 
@@ -123,6 +117,38 @@ public class GestionTemperaturas {
 
 		System.out.println();
 
+	}
+
+	static boolean existeCiudad(ArrayList<Ciudad> temperaturas) {
+
+		Ciudad ciudad = new Ciudad();
+		Scanner sc = new Scanner(System.in);
+		String nombreCiudad;
+		
+		System.out.println("Introduce el nombre de la ciudad: ");
+		nombreCiudad = sc.nextLine();
+
+		for (Ciudad elemento : temperaturas) {
+
+			if (!elemento.getNombre().equals(nombreCiudad)) {
+
+				System.out.println("La ciudad ya existe en la lista.");
+
+				ciudad.setNombre(nombreCiudad);
+				System.out.println("Introduce la temperatura: ");
+				ciudad.setTemperatura(Double.parseDouble(sc.nextLine()));
+
+				temperaturas.add(ciudad);
+				
+				return true;
+			} else {
+				
+				return false;
+			}
+		}
+		
+		return true;
+		
 	}
 
 }
