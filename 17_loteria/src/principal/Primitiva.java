@@ -21,7 +21,7 @@ public class Primitiva {
 
 		while (numeros.size() < 6) {
 
-			numero = (int) (Math.random() * 46 + 1);
+			numero = (int) (Math.random() * 49 + 1);
 
 			if (!numeros.contains(numero)) {
 				numeros.add(numero);

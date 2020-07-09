@@ -8,7 +8,7 @@ public class Lectura {
 		
 		// crear un objeto de la clase Scanner y referenciarlo mediante una variable de ese tipo
 		Scanner scanner = new Scanner(System.in);
-
+		scanner.close();
 	}
 
 }

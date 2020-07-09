@@ -57,12 +57,7 @@ public class GestionTemperaturas {
 	}
 
 	static void addTemperatura(ArrayList<Ciudad> temperaturas) {
-
-		Scanner sc = new Scanner(System.in);
-		Ciudad ciudad = new Ciudad();
-
 		existeCiudad(temperaturas);
-
 	}
 
 	static void tempMedia(ArrayList<Ciudad> temperaturas) {
@@ -75,9 +70,7 @@ public class GestionTemperaturas {
 		}
 
 		System.out.println("La temperatura media es de " + (tempMedia / temperaturas.size() + " grados."));
-
 		System.out.println();
-
 	}
 
 	static void tempExtremas(ArrayList<Ciudad> temperaturas) {
@@ -105,7 +98,6 @@ public class GestionTemperaturas {
 		System.out.println("La temperatura minima es de " + min + " grados, en " + ciudadTempMin + ".");
 		System.out.println("La temperatura maxima es de " + max + " grados, en " + ciudadTempMax + ".");
 		System.out.println();
-
 	}
 
 	static void mostrarTodasTemperaturas(ArrayList<Ciudad> temperaturas) {
@@ -116,7 +108,6 @@ public class GestionTemperaturas {
 		}
 
 		System.out.println();
-
 	}
 
 	static boolean existeCiudad(ArrayList<Ciudad> temperaturas) {
@@ -148,7 +139,6 @@ public class GestionTemperaturas {
 		}
 		
 		return true;
-		
 	}
 
 }
