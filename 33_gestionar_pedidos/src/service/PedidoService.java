@@ -1,14 +1,19 @@
 package service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import model.Pedido;
 
 public class PedidoService {
-	private ArrayList<Pedido> pilaPedidos;
+	private List<Pedido> pilaPedidos;
 
 	public PedidoService() {
 		this.pilaPedidos = new ArrayList<>();
+	}
+	
+	public void eliminarPedido(String pedido) {
+		pilaPedidos.removeIf(p -> p.getProducto().contains(pedido));
 	}
 
 	public boolean agregarPedido(Pedido pedido) {
@@ -41,7 +46,7 @@ public class PedidoService {
 		return false;
 	}
 
-	public ArrayList<Pedido> facturacionPendiente() {
+	public List<Pedido> facturacionPendiente() {
 		if (pilaPedidos.size() > 0) {
 			return pilaPedidos;
 		} else {
@@ -49,8 +54,8 @@ public class PedidoService {
 		}
 	}
 
-	public ArrayList<String> nombresPedidosPendientes() {
-		ArrayList<String> nombresProductos = new ArrayList<>();
+	public List<String> nombresPedidosPendientes() {
+		List<String> nombresProductos = new ArrayList<>();
 
 		if (pilaPedidos.size() > 0) {
 			for (Pedido producto : pilaPedidos) {
@@ -62,11 +67,11 @@ public class PedidoService {
 		}
 	}
 
-	public ArrayList<Pedido> getPilaPedidos() {
+	public List<Pedido> getPilaPedidos() {
 		return pilaPedidos;
 	}
 
-	public void setPilaPedidos(ArrayList<Pedido> pilaPedidos) {
+	public void setPilaPedidos(List<Pedido> pilaPedidos) {
 		this.pilaPedidos = pilaPedidos;
 	}
 
