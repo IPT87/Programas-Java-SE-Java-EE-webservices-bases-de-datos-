@@ -26,10 +26,7 @@ public class PedidoService {
 
 			limpiarFichero();
 
-			for (Pedido p : pilaPedidos) {
-				String entrada = p.getNumero() + "," + p.getProducto() + "," + p.getPrecio();
-				escribirDatos(entrada);
-			}
+			convertirDatos(pilaPedidos);
 			return true;
 		}
 		return false;
@@ -43,10 +40,7 @@ public class PedidoService {
 
 			limpiarFichero();
 
-			for (Pedido p : pila) {
-				String entrada = p.getNumero() + "," + p.getProducto() + "," + p.getPrecio();
-				escribirDatos(entrada);
-			}
+			convertirDatos(pila);
 			return true;
 		}
 		return false;
@@ -64,10 +58,7 @@ public class PedidoService {
 
 				limpiarFichero();
 
-				for (Pedido p : pila) {
-					String entrada = p.getNumero() + "," + p.getProducto() + "," + p.getPrecio();
-					escribirDatos(entrada);
-				}
+				convertirDatos(pila);
 				return true;
 			}
 		}
@@ -104,10 +95,7 @@ public class PedidoService {
 
 		limpiarFichero();
 
-		for (Pedido p : pila) {
-			String entrada = p.getNumero() + "," + p.getProducto() + "," + p.getPrecio();
-			escribirDatos(entrada);
-		}
+		convertirDatos(pila);
 
 		return resultado;
 	}
@@ -143,6 +131,13 @@ public class PedidoService {
 			out.println(entrada);
 		} catch (IOException e) {
 			e.printStackTrace();
+		}
+	}
+	
+	private void convertirDatos(List<Pedido> lista) {
+		for (Pedido p : lista) {
+			String entrada = p.getNumero() + "," + p.getProducto() + "," + p.getPrecio();
+			escribirDatos(entrada);
 		}
 	}
 
