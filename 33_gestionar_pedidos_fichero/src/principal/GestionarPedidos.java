@@ -7,135 +7,249 @@ import model.Pedido;
 import service.PedidoService;
 
 public class GestionarPedidos {
-	private static Scanner scan = new Scanner(System.in);
-	private static PedidoService service = new PedidoService();
-	private static int opcion;
+
+	private static Scanner sc;
+
+	// Presenta un menú de opciones
+
+	static void presentarMenu() {
+
+		System.out.println("\r\n----- MENÚ OPCIONES -----");
+		System.out.println();
+		System.out.println("1.- Agregar Pedido");
+		System.out.println("2.- Procesar Pedido");
+		System.out.println("3.- Priorizar Pedido");
+		System.out.println("4.- Facturación Pendiente");
+		System.out.println("5.- Pedidos Pendientes");
+		System.out.println("6.- Salir");
+		System.out.println();
+	}
+
+	// Lee la opción elegida
+
+	static int leerOpcionMenu() {
+		sc = new Scanner(System.in);
+		return Integer.parseInt(sc.nextLine());
+	}
+
+	// Lee el número de pedido
+
+	static int leerNumeroPedido() {
+		sc = new Scanner(System.in);
+		System.out.println("Introduce el número de pedido: ");
+		return Integer.parseInt(sc.nextLine());
+	}
+
+	// Lee la descripción del producto
+
+	static String leerProducto() {
+		sc = new Scanner(System.in);
+		System.out.println("Introduce el nombre del producto: ");
+		return sc.nextLine();
+	}
+
+	// Lee el precio del producto
+
+	static double leerPrecio() {
+		sc = new Scanner(System.in);
+		System.out.println("Introduce el precio del producto: ");
+		return Double.parseDouble(sc.nextLine());
+	}
+
+	// Cierra el scanner
+
+	static void cerrarScanner() {
+		sc.close();
+	}
+
+	// Agrega un pedido si no existe el mismo id de pedido
+
+	static boolean agregarPedido(PedidoService ps) {
+		int id = 0;
+		String producto = "";
+		double precio = 0.0;
+		// Solicitud del número de pedido
+		// Captura excepción si hay error de usuario
+		try {
+			id = leerNumeroPedido();
+
+		} catch (NumberFormatException e) {
+			System.out.println("El número de pedido no es válido");
+
+			return false;
+		}
+
+		// Solicitud de la descripción del producto
+
+		producto = leerProducto();
+
+		// Solicitud del precio del producto
+		// Captura excepción si hay error de usuario
+
+		try {
+
+			precio = leerPrecio();
+
+		} catch (NumberFormatException e) {
+
+			System.out.println("El precio no es válido");
+
+			return false;
+		}
+
+		/*
+		 * Si los datos son válidos se intenta registrar el pedido Datos válidos si
+		 * precio e id son mayor que 0 Los requisitos de la aplicación no dicen nada
+		 * sobre esto Es una posible mejora
+		 */
+
+		if ((id > 0) && (precio > 0)) {
+
+			// Se crea una instancia del pedido con los datos obtenidos
+
+			Pedido pedido = new Pedido(id, producto, precio);
+
+			// Se registra el pedido o se muestra un mensaje si existe el id
+
+			if (!ps.agregarPedido(pedido)) {
+
+				System.out.println("\r\nEl número de pedido ya EXISTE. Pedido NO registrado\r\n");
+
+				return false;
+			}
+
+			return true;
+		}
+
+		System.out.println("\r\nLos datos NO son válidos\r\n");
+
+		return false;
+	}
+
+	// Procesa el siguiente pedido
+
+	static void procesarSiguiente(PedidoService ps) {
+
+		// Se intenta procesar el pedido
+
+		Pedido siguiente = ps.procesarPedido();
+
+		// Se informa al usuario del resultado
+
+		if (siguiente != null) {
+
+			System.out.println("Se ha procesado el " + siguiente);
+
+		} else {
+
+			System.out.println("\r\nNO hay pedidos para procesar");
+		}
+	}
+
+	// Prioriza un pedido
+
+	static void priorizar(PedidoService ps) {
+
+		if (ps.pedidosPendientes().size() != 0) {
+
+			// Solicitud del número de pedido
+
+			int id = leerNumeroPedido();
+
+			Pedido pedido = ps.priorizarPedido(id);
+
+			if (pedido != null) {
+
+				System.out.println("Se ha priorizado el " + pedido);
+
+			} else {
+
+				System.out.println("\r\nNO se puede priorizar este pedido");
+			}
+
+		} else {
+
+			System.out.println("\r\nNO hay pedidos");
+		}
+	}
+
+	// Muestra la facturacion pendiente
+
+	static void facturacion(PedidoService ps) {
+
+		System.out.println("\r\nFACTURACIÓN PENDIENTE: " + ps.facturacionPendiente());
+	}
+
+	// Muestra los pedidos pendientes
+
+	static void mostrarPendientes(PedidoService ps) {
+
+		List<Pedido> pedidos = ps.pedidosPendientes();
+
+		// Se muestran los pedidos pendientes si hay
+		// Si no, se informa al usuario
+
+		if (pedidos.size() != 0) {
+
+			System.out.println("\r\nLISTA DE PEDIDOS PENDIENTES: \r\n");
+
+			pedidos.forEach(p -> System.out.println(p));
+
+		} else {
+
+			System.out.println("\r\nNO hay pedidos pendientes");
+		}
+	}
 
 	public static void main(String[] args) {
 
-		do {
-			menu();
-			opcion = Integer.parseInt(scan.nextLine());
+		PedidoService servicioPedidos = new PedidoService();
 
+		int opcion;
+
+		do {
+			opcion = 0;
+			presentarMenu();
+			/*
+			 * Captura el error de usuario al marcar una opción distinta de int y evita que
+			 * el programa caiga
+			 */
+			try {
+				opcion = leerOpcionMenu();
+			} catch (NumberFormatException e) {
+
+				System.out.println();
+			}
 			switch (opcion) {
 			case 1:
-				addPedido();
+				agregarPedido(servicioPedidos);
 				break;
 			case 2:
-				tramitarPedido();
+				procesarSiguiente(servicioPedidos);
 				break;
 			case 3:
-				darPrioridad();
+				priorizar(servicioPedidos);
 				break;
 			case 4:
-				pedidosPendientes();
+				facturacion(servicioPedidos);
 				break;
 			case 5:
-				nombresPedidosPorProcesar();
+				mostrarPendientes(servicioPedidos);
 				break;
 			case 6:
-				borrarPedido();
+				System.out.println("BYE !");
+				break;
+			default:
+				System.out.println("\r\nLa opción NO es válida. Prueba otra vez");
 				break;
 			}
-		} while (opcion != 7);
 
-		scan.close();
+		} while (opcion != 6);
 
-	}
+		// Ya no vamos a utilizar el scanner
 
-	private static void menu() {
-		System.out.println("--------Opciones--------");
-		System.out.println("1. Agregar pedido");
-		System.out.println("2. Procesar pedido");
-		System.out.println("3. Priorizar pedido");
-		System.out.println("4. Facturación pendiente");
-		System.out.println("5. Pedidos pendientes");
-		System.out.println("6. Eliminar pedido");
-		System.out.println("7. Salir");
-	}
+		cerrarScanner();
 
-	private static void addPedido() {
-		if (service.agregarPedido(crearPedido())) {
-			System.out.println("El pedido se ha añadido.");
-		} else {
-			System.out.println("Pedido con este numero ya existe en la lista.");
-		}
-	}
-
-	private static Pedido crearPedido() {
-		scan = new Scanner(System.in);
-
-		System.out.println("Introduce numero de pedido: ");
-		int numero = Integer.parseInt(scan.nextLine());
-
-		System.out.println("Introduce producto: ");
-		String producto = scan.nextLine();
-
-		System.out.println("Introduce el precio: ");
-		double precio = Double.parseDouble(scan.nextLine());
-
-		return new Pedido(numero, producto, precio);
-
-	}
-
-	private static void tramitarPedido() {
-		if (service.procesarPedido()) {
-			System.out.println("Pedido procesado con exito.");
-		} else {
-			System.out.println("No hay pedidos por procesar.");
-		}
-	}
-
-	private static void darPrioridad() {
-		System.out.println("Introduce el numero del pedido: ");
-		int numero = Integer.parseInt(scan.nextLine());
-
-		if (service.priorizarPedido(numero)) {
-			System.out.println("El pedido con numero " + numero + " fue priorizado.");
-		} else {
-			System.out.println("No existe pedido con numero " + numero + ", o el pedido esta listo para procesar.");
-		}
-	}
-
-	private static void pedidosPendientes() {
-		System.out.println("Pedidos pendientes por procesar:");
-
-		if (service.facturacionPendiente() != null) {
-			int contador = service.facturacionPendiente().size();
-			List<Pedido> lista = service.facturacionPendiente();
-			for (Pedido pedido : lista) {
-				System.out.println("Numero: " + pedido.getNumero() + ", producto- " + pedido.getProducto()
-						+ ", precio: " + pedido.getPrecio() + "€");
-			}
-			if (contador == 1) {
-				System.out.println("Total: " + contador + " producto.");
-			} else {
-				System.out.println("Total: " + contador + " productos.");
-			}
-		} else {
-			System.out.println("0");
-		}
-	}
-
-	private static void nombresPedidosPorProcesar() {
-		if (service.nombresPedidosPendientes() != null) {
-			List<String> lista = service.nombresPedidosPendientes();
-			for (String pedido : lista) {
-				System.out.println("Producto- " + pedido + ".");
-			}
-		} else {
-			System.out.println("No hay pedidos pendientes.");
-		}
-	}
-
-	private static void borrarPedido() {
-		System.out.println("Introduce producto: ");
-		String pedido = scan.nextLine();
-		if (service.eliminarPedido(pedido)) {
-			System.out.println("El pedido " + pedido + " se ha eliminado con exito.");
-		} else {
-			System.out.println("No existe pedido " + pedido + ".");
-		}
 	}
 
 }

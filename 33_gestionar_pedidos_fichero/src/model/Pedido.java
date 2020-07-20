@@ -40,10 +40,6 @@ public class Pedido {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + numero;
-		long temp;
-		temp = Double.doubleToLongBits(precio);
-		result = prime * result + (int) (temp ^ (temp >>> 32));
-		result = prime * result + ((producto == null) ? 0 : producto.hashCode());
 		return result;
 	}
 
@@ -58,6 +54,11 @@ public class Pedido {
 			return false;
 		}
 		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "Pedido [numero=" + numero + ", producto=" + producto + ", precio=" + precio + "]";
 	}
 
 }
