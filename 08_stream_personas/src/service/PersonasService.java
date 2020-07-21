@@ -22,20 +22,22 @@ public class PersonasService {
 
 	// persona mas joven
 	public Persona obtenerMasJoven() {
-		Stream<Persona> personasStream = personas.stream();
-		return personasStream
+		return personas
+				.stream()
 				.min((n1, n2) -> n1.getEdad() - n2.getEdad())
 				.get();
 	}
 
 	// el numero de personas cuya edad es superior a la media
 	public int superiorMedia() {
-		Stream<Persona> personasStream = personas.stream();
-		double edadMedia = personasStream
+		// sin crear una variable
+		double edadMedia = personas
+				.stream()
 				.mapToInt(p -> p.getEdad())
 				.average()
 				.getAsDouble();
 
+		// creando una variable de tipo stream
 		Stream<Persona> personasStream1 = personas.stream();
 		return personasStream1
 				.filter(p -> p.getEdad() > edadMedia)
@@ -44,24 +46,24 @@ public class PersonasService {
 
 	// personas ordenadas por edad
 	public List<Persona> ordenadasPorEdad() {
-		Stream<Persona> personasStream = personas.stream();
-		return personasStream
+		return personas
+				.stream()
 				.sorted((p1, p2) -> p1.getEdad() - p2.getEdad())
 				.collect(Collectors.toList());
 	}
 
 	// lista nombres de personas
 	public List<String> nombres() {
-		Stream<Persona> personasStream = personas.stream();
-		return personasStream
+		return personas
+				.stream()
 				.map(p -> p.getNombre())
 				.collect(Collectors.toList());
 	}
 
 	// dominio sea igual al indicado
 	public List<Persona> personasDominio(String dominio) {
-		Stream<Persona> personasStream = personas.stream();
-		return personasStream
+		return personas
+				.stream()
 				.filter(p -> p.getEmail().endsWith(dominio))
 				.collect(Collectors.toList());
 	}
