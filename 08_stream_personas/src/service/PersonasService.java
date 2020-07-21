@@ -2,6 +2,8 @@ package service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -17,7 +19,8 @@ public class PersonasService {
 		personas.add(new Persona("Marta", "alaaoi@gg.com", 34));
 		personas.add(new Persona("Lucas", "alert@gg.es", 44));
 		personas.add(new Persona("Alicia", "sdfl@gg.com", 35));
-		personas.add(new Persona("Santiago", "solp@dw.net", 50));
+		personas.add(new Persona("Marta", "solp@dw.es", 50));
+		personas.add(new Persona("Santiago", "solp@dw.net", 45));
 	}
 
 	// persona mas joven
@@ -25,7 +28,7 @@ public class PersonasService {
 		return personas
 				.stream()
 				.min((n1, n2) -> n1.getEdad() - n2.getEdad())
-				.get();
+				.orElse(null);
 	}
 
 	// el numero de personas cuya edad es superior a la media
@@ -33,9 +36,9 @@ public class PersonasService {
 		// sin crear una variable
 		double edadMedia = personas
 				.stream()
-				.mapToInt(p -> p.getEdad())
+				.mapToDouble(p -> p.getEdad())
 				.average()
-				.getAsDouble();
+				.orElse(0);
 
 		// creando una variable de tipo stream
 		Stream<Persona> personasStream1 = personas.stream();
@@ -66,6 +69,25 @@ public class PersonasService {
 				.stream()
 				.filter(p -> p.getEmail().endsWith(dominio))
 				.collect(Collectors.toList());
+	}
+	
+	public Set<Persona> personasEdadSuperiorValor(int edad) {
+		return personas
+				.stream()
+				.filter(p -> p.getEdad() > edad)
+				.collect(Collectors.toSet());
+	}
+	
+	public Map<String, Persona> personasOrdenadasClaveEmail() {
+		return personas
+				.stream()
+				.collect(Collectors.toMap(p -> p.getEmail(), p -> p));
+	}
+	
+	public Map<String, List<Persona>> personasAgrupadasPorDominio() {
+		return personas
+				.stream()
+				.collect(Collectors.groupingBy(p -> p.getEmail().split("[.]")[1]));
 	}
 
 }
