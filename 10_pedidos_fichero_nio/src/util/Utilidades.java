@@ -10,6 +10,6 @@ public class Utilidades {
 	}
 	
 	public static String construirCadena(Pedido pedido, String separador) {
-		return pedido.getNumero()+separador+pedido.getProducto()+separador+pedido.getPrecio();
+		return pedido.getNumero() + separador + pedido.getProducto() + separador + pedido.getPrecio();
 	}
 }

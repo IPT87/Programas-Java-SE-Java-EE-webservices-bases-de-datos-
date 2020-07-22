@@ -44,6 +44,9 @@ public class GestionarPedidos {
 			case 6:
 				eliminarPedidoPorNumero(servicioPedidos);
 				break;
+			/* case 7:
+				priorizarMaximo(servicioPedidos);
+				break; */
 			case 7:
 				System.out.println("Hasta luego.");
 				break;
@@ -68,6 +71,7 @@ public class GestionarPedidos {
 		System.out.println("4. Facturación Pendiente");
 		System.out.println("5. Pedidos Pendientes");
 		System.out.println("6. Eliminar pedido");
+		// System.out.println("7. Maxima prioridad");
 		System.out.println("7. Salir");
 		System.out.println();
 	}
@@ -154,6 +158,23 @@ public class GestionarPedidos {
 			System.out.println("NO hay pedidos.");
 		}
 	}
+	
+	/* private static void priorizarMaximo(PedidoService ps) {
+
+		if (ps.pedidosPendientes().size() != 0) {
+			int id = leerNumeroPedido();
+
+			Pedido pedido = ps.maximaPrioridad(id);
+
+			if (pedido != null) {
+				System.out.println("Se ha priorizado el " + pedido);
+			} else {
+				System.out.println("NO se puede priorizar este pedido.");
+			}
+		} else {
+			System.out.println("NO hay pedidos.");
+		}
+	} */
 
 	private static void facturacion(PedidoService ps) {
 		System.out.println("FACTURACIÓN PENDIENTE: " + ps.facturacionPendiente());

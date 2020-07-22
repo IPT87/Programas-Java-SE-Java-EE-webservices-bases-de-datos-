@@ -69,6 +69,30 @@ public class PedidoService {
 			e.printStackTrace();
 		}
 	}
+	
+	/* public Pedido maximaPrioridad(int numeroPedido) {
+		Pedido pedido, aux;
+		pedido = obtenerPedido(numeroPedido);
+		List<Pedido> pedidos = pedidosPendientes();
+		
+		if (pedido != null) {
+			int pos = pedidos.indexOf(pedido);
+			
+			if (pos > 0) {
+				aux = pedidos.get(0);
+				pedidos.set(0, pedido);
+				pedidos.remove(pos);
+				for (int i = 1; i < pedidos.size() - 1; i++) {
+					pedido = pedidos.get(i);
+					pedidos.set(i, aux);
+					aux = pedidos.get(i + 1);
+					pedidos.set(i + 1, pedido);
+				}
+			}
+		}
+		volcarPedidos(pedidos);
+		return pedido;
+	} */
 
 
 	public Pedido priorizarPedido(int numeroPedido) {
