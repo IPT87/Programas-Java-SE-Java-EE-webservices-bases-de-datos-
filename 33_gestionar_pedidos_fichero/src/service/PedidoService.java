@@ -11,7 +11,7 @@ import java.util.List;
 import model.Pedido;
 
 public class PedidoService {
-	private final String RUTA = "C:\\Users\\MrIbi\\Desktop\\Curso_Java_2020\\pedidos.txt";
+	private final String RUTA = "pedidos.txt";
 	private final String SEPARADOR = ",";
 	private double facturacion = 0;
 
