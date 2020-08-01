@@ -2,9 +2,7 @@ package util;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
 import org.json.simple.JSONObject;
-
 import model.Caso;
 
 public class Utilidades {

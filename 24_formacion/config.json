@@ -1,0 +1,6 @@
+{
+	"driver":"com.mysql.cj.jdbc.Driver",
+	"cadenaConexion":"jdbc:mysql://localhost:3306/escuela?serverTimezone=Europe/Madrid",
+	"user":"root",
+	"password":"root"
+}

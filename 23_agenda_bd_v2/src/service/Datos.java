@@ -5,10 +5,11 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class Datos {
-	static String driver = "com.mysql.cj.jdbc.Driver";
-	static String cadenaConexion = "jdbc:mysql://localhost:3307/miscontactos?serverTimezone=UTC";
-	static String user = "root";
-	static String password = "root";
+	static String driver;
+	static String cadenaConexion;
+	static String user;
+	static String password;
+	static String FILE = "config.json";
 	
 	static {
 		// carga del driver
@@ -23,4 +24,8 @@ public class Datos {
 		return DriverManager.getConnection(cadenaConexion, user, password);
 	}
 
+	private static void cargarPropiedades() {
+		
+	}
+	
 }

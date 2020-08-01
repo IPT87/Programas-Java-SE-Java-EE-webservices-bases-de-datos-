@@ -1,14 +1,12 @@
 package service;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-
 import model.Contacto;
 
 public class ContactoService {
@@ -26,7 +24,7 @@ public class ContactoService {
 	}
 	
 	public boolean addContacto(Contacto contacto) {
-		try (Connection con = DriverManager.getConnection(cadenaConexion, user, password)) {
+		try (Connection con = Datos.getConnection()) {
 			//opcion Statement
 			/* String sql = "insert into contactos(nombre, email, edad) values('" + contacto.getNombre() + "', '" + contacto.getEmail() + "', '" + contacto.getEdad() + "')";
 			Statement st = con.createStatement();
@@ -48,7 +46,7 @@ public class ContactoService {
 	
 	public boolean eliminarContacto(String email) {
 		
-		try (Connection con = DriverManager.getConnection(cadenaConexion, user, password)) {
+		try (Connection con = Datos.getConnection()) {
 			// envio de instruccion SQL
 			String sql = "DELETE FROM contactos WHERE email=?";
 			PreparedStatement st = con.prepareStatement(sql);
@@ -62,7 +60,7 @@ public class ContactoService {
 	}
 	
 	public Contacto buscarContacto(String email) {
-		try (Connection con = DriverManager.getConnection(cadenaConexion, user, password)) {
+		try (Connection con = Datos.getConnection()) {
 			// envio de instruccion SQL
 			String sql = "SELECT * FROM contactos WHERE email=?";
 			PreparedStatement st = con.prepareStatement(sql);
@@ -82,7 +80,7 @@ public class ContactoService {
 	public List<Contacto> mostrarContactos() {
 		List<Contacto> listaContactos = new ArrayList<>();
 		
-		try (Connection con = DriverManager.getConnection(cadenaConexion, user, password)) {
+		try (Connection con = Datos.getConnection()) {
 			// envio de instruccion SQL
 			String sql = "SELECT * FROM contactos";
 			Statement st = con.createStatement();
