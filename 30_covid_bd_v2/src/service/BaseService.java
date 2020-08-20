@@ -17,10 +17,12 @@ public abstract class BaseService {
 	
 	public boolean addCaso(Caso caso) {
 		try(Connection con = Datos.getConnection()) {
+			//Estoy comprobando si en la base de datos existe un caso con la misma fecha y nombre de comunidad que el que quiero guardar
 			String sql = "SELECT * FROM comunidad WHERE abreviatura = '" + caso.getComunidad() + "' AND fecha = '" + sdf.format(caso.getFecha()) + "'";
 			Statement st = con.createStatement();
 			ResultSet rs = st.executeQuery(sql);
 
+			//Si no existe, ya puedo ingresar los datos del caso
 			if (!rs.next()) {
 				String sql1 = "INSERT INTO comunidad(abreviatura,fecha,positivos) values (?,?,?)"; 
 				PreparedStatement st1 = con.prepareStatement(sql1);

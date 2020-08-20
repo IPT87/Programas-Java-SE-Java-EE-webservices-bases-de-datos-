@@ -23,6 +23,7 @@ public abstract class BaseService {
 				st.setInt(3, caso.getPositivos());
 				st.execute(); 
 			} catch (Exception e) {
+				// Si el caso con la misma fecha y nombre de comunidad ya existe estoy capturando la exepcion y los datos no se guardan
 				System.out.println("Ya existen los datos del dia: " + sdf.format(caso.getFecha()) + ", en comunidad: " + caso.getComunidad() + "!");
 			}
 			return true;
