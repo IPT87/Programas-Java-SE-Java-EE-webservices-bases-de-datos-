@@ -47,7 +47,7 @@ public class LeerEstadisticas {
 				System.out.println("Hasta luego.");
 				break;
 			default:
-				System.out.println("La opción NO es válida. Prueba otra vez");
+				System.out.println("La opción NO es válida. Prueba otra vez.");
 				break;
 			}
 		} while (opcion != 7);
