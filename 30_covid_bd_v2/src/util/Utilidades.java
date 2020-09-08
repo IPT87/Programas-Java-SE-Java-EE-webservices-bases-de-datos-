@@ -34,7 +34,7 @@ public class Utilidades {
 	}
 	
 	public static Caso stringToCaso(String f) {
-		String[] partes=f.split("[,]");
+		String[] partes = f.split("[,]");
 		
 		try {
 			return new Caso(convertirAbreviaturaNombre(partes[0]),

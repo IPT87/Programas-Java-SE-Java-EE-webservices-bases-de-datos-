@@ -9,7 +9,7 @@ import java.util.stream.Stream;
 import model.Caso;
 
 public abstract class BaseService {
-	static SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+	static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 	
 	public abstract Stream<Caso> streamCaso();
 	

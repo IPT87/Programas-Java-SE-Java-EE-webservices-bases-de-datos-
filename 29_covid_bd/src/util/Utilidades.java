@@ -8,7 +8,7 @@ import model.CasoJson;
 import model.Caso;
 
 public class Utilidades {
-	static SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+	static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 	static HashMap<String, String> comunidades = new HashMap<>();
 	
 	static {
@@ -34,7 +34,7 @@ public class Utilidades {
 	}
 	
 	public static Caso stringToCaso(String f) {
-		String[] partes=f.split("[,]");
+		String[] partes = f.split("[,]");
 		
 		try {
 			return new Caso(convertirAbreviaturaNombre(partes[0]),

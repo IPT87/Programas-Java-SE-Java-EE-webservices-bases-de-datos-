@@ -48,10 +48,10 @@ public class CargarInformesCovidEnBd {
 		String ruta = scan.nextLine();
 		
 		if (ruta.endsWith(".json")) {
-			BaseService service=new JsonService(ruta);
+			BaseService service = new JsonService(ruta);
 			service.streamCaso().forEach(c -> service.addCaso(c));
 		} else if (ruta.endsWith(".csv")) {
-			BaseService service=new CsvService(ruta);
+			BaseService service = new CsvService(ruta);
 			service.streamCaso().forEach(c -> service.addCaso(c));
 		}
 		

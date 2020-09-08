@@ -15,22 +15,21 @@ public class JsonService extends BaseService {
 	String RUTA;
 	
 	public JsonService(String ruta) {
-		this.RUTA=ruta;
+		this.RUTA = ruta;
 		
 	}
 	
 	@Override
 	public Stream<Caso> streamCaso() {
-		Gson gson=new Gson()
+		Gson gson = new Gson()
 				.newBuilder()
 				.setDateFormat("yyyy-MM-dd")
 				.create();
-		try (FileReader reader=new FileReader(RUTA);){
-			CasoJson[] casos=gson.fromJson(reader, CasoJson[].class);
+		try (FileReader reader = new FileReader(RUTA);){
+			CasoJson[] casos = gson.fromJson(reader, CasoJson[].class);
 			return Arrays.stream(casos)
 					.map(cj->Utilidades.convertirJsonACaso(cj));
 		} catch (IOException e) {
-			
 			e.printStackTrace();
 			return Stream.empty();
 		}

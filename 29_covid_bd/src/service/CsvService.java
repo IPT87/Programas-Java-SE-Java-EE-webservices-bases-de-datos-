@@ -15,8 +15,8 @@ public class CsvService extends BaseService {
 	String RUTA;
 	
 	public CsvService(String ruta) {
-		this.RUTA=ruta;
-		path=Paths.get(RUTA);
+		this.RUTA = ruta;
+		path = Paths.get(RUTA);
 	}
 	
 	@Override
