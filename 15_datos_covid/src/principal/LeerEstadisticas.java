@@ -46,6 +46,8 @@ public class LeerEstadisticas {
 			case 7:
 				System.out.println("Hasta luego.");
 				break;
+			case 8:
+				System.out.println(service.getComunidades());
 			default:
 				System.out.println("La opción NO es válida. Prueba otra vez");
 				break;

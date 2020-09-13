@@ -23,6 +23,12 @@ public class CasosService {
 		path = Paths.get(fuente);
 	}
 	
+	public List<Caso> getComunidades() {
+		return crearStream()
+				.map(c -> Utilidades.construirCaso(fuente, separador))
+				.collect(Collectors.toList());
+	}
+	
 	public List<Caso> casosPorPeriodo(Date fechaDesde, Date fechaHasta) {
 		return crearStream()
 						.filter(c -> c.getFecha().after(fechaDesde) && c.getFecha().before(fechaHasta))
