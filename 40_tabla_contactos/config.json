@@ -1,0 +1,6 @@
+{
+	"driver":"com.mysql.cj.jdbc.Driver",
+	"cadenaConexion":"jdbc:mysql://localhost:3306/agenda2?serverTimezone=UTC",
+	"user":"root",
+	"password":"root"
+}
