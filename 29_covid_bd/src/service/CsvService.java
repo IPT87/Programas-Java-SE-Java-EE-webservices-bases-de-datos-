@@ -11,8 +11,8 @@ import model.Caso;
 import util.Utilidades;
 
 public class CsvService extends BaseService {
-	Path path;
-	String RUTA;
+	private Path path;
+	private String RUTA;
 	
 	public CsvService(String ruta) {
 		this.RUTA = ruta;

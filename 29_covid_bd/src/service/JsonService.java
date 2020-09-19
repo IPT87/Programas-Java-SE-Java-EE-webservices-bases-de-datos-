@@ -12,11 +12,10 @@ import model.Caso;
 import util.Utilidades;
 
 public class JsonService extends BaseService {
-	String RUTA;
+	private String RUTA;
 	
 	public JsonService(String ruta) {
 		this.RUTA = ruta;
-		
 	}
 	
 	@Override

@@ -1,14 +1,9 @@
 package presentacion.graficos;
 
-import java.awt.BorderLayout;
-import java.awt.Dialog;
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -17,6 +12,7 @@ import java.awt.event.ActionEvent;
 
 public class JVentana extends JFrame {
 
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField tfNumero1;
 	private JLabel jlNumero2;
@@ -118,7 +114,7 @@ public class JVentana extends JFrame {
 				}
 			}
 		});
-		jbSalir.setBounds(10, 242, 85, 21);
+		jbSalir.setBounds(341, 232, 85, 21);
 		contentPane.add(jbSalir);
 	}
 }
