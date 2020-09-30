@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> 
+
+</head>
+<body>
+<div class="container">
+
+	<center>
+	<h2>Buscar libros</h2>
+		<form action="Comprobar" method="post">
+		<div class="form-group">
+			<input type="radio" id="tematica" name="busqueda" value="porTematica" checked>
+			<label class="radio-inline" for="tematica">Buscar por tematica</label><br>
+			<input type="radio" id="isbn" name="busqueda" value="porIsbn">
+			<label class="radio-inline" for="isbn">Buscar por isbn</label><br>
+		</div>
+			<input type="text" name="valor"/><br/>
+			<input type="submit" value="Buscar"/>
+		</form>
+	</center>
+	
+</div>
+</body>
+</html>
