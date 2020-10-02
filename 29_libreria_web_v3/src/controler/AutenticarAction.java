@@ -1,6 +1,9 @@
 package controler;
 
 import java.io.IOException;
+import java.util.List;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -12,10 +15,10 @@ import service.LibreriaService;
 import service.LibreriaServiceFactory;
 
 /**
- * Servlet implementation class RegistrarAction
+ * Servlet implementation class Autenticar
  */
-@WebServlet("/RegistrarAction")
-public class RegistrarAction extends HttpServlet {
+@WebServlet("/AutenticarAction")
+public class AutenticarAction extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -24,15 +27,11 @@ public class RegistrarAction extends HttpServlet {
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		LibreriaService libreriaService = LibreriaServiceFactory.getLibreriaService();
 		
-		Cliente cliente = new Cliente(request.getParameter("usuario"), 
-				request.getParameter("email"), 
-				request.getParameter("pass"), 
-				Integer.parseInt(request.getParameter("telefono")));
-		
-		if (libreriaService.addCliente(cliente)) {		
-			request.setAttribute("resultadoRegistrar", true);
+		if (libreriaService.validarCliente(request.getParameter("usuario"), request.getParameter("pass")) != null) {		
+            request.setAttribute("resultadoAutenticar", true);
+            request.getSession().setAttribute("nombreUsuario", request.getParameter("usuario"));
 		} else {	
-			request.setAttribute("resultadoRegistrar", false);
+			request.setAttribute("resultadoAutenticar", false);
 		}
        
 	}

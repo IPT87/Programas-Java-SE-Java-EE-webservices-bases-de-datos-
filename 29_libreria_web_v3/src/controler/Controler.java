@@ -24,7 +24,7 @@ public class Controler extends HttpServlet {
 		switch (option) {
 			case "doAutenticar":
 				request.getRequestDispatcher("AutenticarAction").include(request, response);
-				url = (Boolean) request.getAttribute("resultadoAutenticar") ? "bienvenida.html" : "error.html";
+				url = (Boolean) request.getAttribute("resultadoAutenticar") ? "temas.jsp" : "error.html";
 				break;
 			case "doRegistrar":
 				request.getRequestDispatcher("RegistrarAction").include(request, response);
@@ -36,11 +36,14 @@ public class Controler extends HttpServlet {
 			case "toSalir":
 				url = "login.html";
 				break;
-			case "toBienvenida":
-				url = "bienvenida.html";
+			case "toTemas":
+				url = "temas.jsp";
 				break;
 			case "toError":
 				url = "error.html";
+				break;
+			case "toListaTemas":
+				url = "listaTemas.jsp";
 				break;
 		}
 		request.getRequestDispatcher(url).forward(request, response);

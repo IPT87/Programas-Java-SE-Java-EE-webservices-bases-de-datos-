@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Login</title>
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+	<center>
+		<form action="Controler?option=doAutenticar" method="post">
+			<div class="form-group">
+				<label for="nombre">Usuario:</label>
+				<input type="text" style="width:250px;" name="usuario" class="form-control" placeholder="Usuario" id="nombre" required="required" /><br />
+			</div>
+			<div class="form-group">
+				<label for="pass">Contraseña:</label>
+				<input type="password" style="width:250px;" name="pass" class="form-control" placeholder="Contraseña" id="pass" required="required"/><br />
+			</div>
+			<button type="submit" class="btn btn-primary">Entrar</button>
+			
+		</form>
+		<form action="Controler?option=toRegistrar" method="post">
+			</br>
+			<button type="submit" class="btn btn-primary">Registrar</button>
+		</form>
+	</center>
+</body>
+</html>

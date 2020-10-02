@@ -26,16 +26,13 @@ public class AutenticarAction extends HttpServlet {
 	 */
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		LibreriaService libreriaService = LibreriaServiceFactory.getLibreriaService();
-			
-		String url;
 		
 		if (libreriaService.validarCliente(request.getParameter("usuario"), request.getParameter("pass")) != null) {		
-            url = "Controler?option=toBienvenida";            
+            request.setAttribute("resultadoAutenticar", true);
 		} else {	
-			url = "Controler?option=toError";
+			request.setAttribute("resultadoAutenticar", false);
 		}
        
-        request.getRequestDispatcher(url).forward(request, response);
 	}
 
 }
