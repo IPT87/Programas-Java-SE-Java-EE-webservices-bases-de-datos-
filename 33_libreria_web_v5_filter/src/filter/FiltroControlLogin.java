@@ -35,6 +35,7 @@ public class FiltroControlLogin implements Filter {
 		
 		if(path.equals("/") || (path.equals("/Controller") && param.equals("doLogin"))) {
 			chain.doFilter(request, response);
+			return;
 		}
 		
 		//comprobamos la existencia del atributo de sesión "cliente"

@@ -46,7 +46,6 @@ public class ComprarAction extends HttpServlet {
 		
 		if (resultadoVenta) {
 			libros.clear();
-			session.setAttribute("librosCarrito", libros);
 		}
 		
 		request.setAttribute("resultadoVenta", resultadoVenta);
