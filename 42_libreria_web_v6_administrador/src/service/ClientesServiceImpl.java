@@ -5,36 +5,31 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import javax.enterprise.context.RequestScoped;
-import javax.inject.Named;
-
 import model.Cliente;
 
-@RequestScoped
-@Named("clientesService")
 class ClientesServiceImpl implements ClientesService {
 
 	@Override
 	public Cliente validarCliente(String user, String password) {
-		Cliente c = null;
-		try(Connection cn = Datos.getConnection();) {                       
+		Cliente c=null;
+		try(Connection cn=Datos.getConnection();) {                       
 	           
-            String sql = "Select * from clientes where ";
-            sql += "usuario=? and password=?";
+            String sql="Select * from clientes where ";
+            sql+="usuario=? and password=?";
             //creamos consulta preparada:
-            PreparedStatement ps = cn.prepareStatement(sql);
+            PreparedStatement ps=cn.prepareStatement(sql);
                //Sustituimos parametros por valores
                ps.setString(1, user);
                ps.setString(2, password);
                
                //ejecutamos
-              ResultSet rs = ps.executeQuery();
+              ResultSet rs= ps.executeQuery();
               if(rs.next()){
-            	   c = new Cliente(rs.getInt("idCliente"), 
-            			   rs.getString("usuario"), 
-            			   rs.getString("password"),
-            			   rs.getString("email"),
-            			   rs.getInt("telefono"));
+            	   c=new Cliente(rs.getInt("idCliente"), 
+            			  rs.getString("usuario"), 
+            			  rs.getString("password"),
+            			  rs.getString("email"),
+            			  rs.getInt("telefono"));
               }
             
         }  catch (SQLException ex) {
@@ -69,3 +64,4 @@ class ClientesServiceImpl implements ClientesService {
 
 	
 }
+

@@ -1,3 +1,4 @@
+
 package service;
 
 import java.sql.Connection;
@@ -8,22 +9,17 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.enterprise.context.RequestScoped;
-import javax.inject.Named;
-
 import model.Libro;
 
-@RequestScoped
-@Named("librosService")
-public class LibrosServiceImpl implements LibrosService {	 
-    
+ public class LibrosServiceImpl implements LibrosService {
+	   
     @Override
 	public List<Libro> recuperarLibros(){
-    	List<Libro> lista = new ArrayList<>();
-        try(Connection cn = Datos.getConnection();) {                       
-        	String sql = "SELECT * FROM libros";
-            Statement st = cn.createStatement();
-            ResultSet rs = st.executeQuery(sql);            
+    	List<Libro> lista=new ArrayList<> ();
+        try(Connection cn=Datos.getConnection();) {                       
+        	String sql="select * from libros";
+            Statement st=cn.createStatement();
+            ResultSet rs=st.executeQuery(sql);            
             while(rs.next()){
                 lista.add(new Libro(rs.getInt("isbn"),
                         rs.getString("titulo"),
@@ -39,12 +35,12 @@ public class LibrosServiceImpl implements LibrosService {
     }
     @Override
 	public List<Libro> recuperarLibros(int idTema){
-    	List<Libro> lista = new ArrayList<> ();
-        try(Connection cn = Datos.getConnection();) {                       
-        	String sql = "SELECT * FROM libros WHERE idTema=?";
+    	List<Libro> lista=new ArrayList<> ();
+        try(Connection cn=Datos.getConnection();) {                       
+        	String sql="select * from libros where idTema=?";
             PreparedStatement st=cn.prepareStatement(sql);
             st.setInt(1, idTema);
-            ResultSet rs = st.executeQuery();            
+            ResultSet rs=st.executeQuery();            
             while(rs.next()){
                 lista.add(new Libro(rs.getInt("isbn"),
                         rs.getString("titulo"),
@@ -55,7 +51,7 @@ public class LibrosServiceImpl implements LibrosService {
             }
         }  catch (SQLException ex) {
             ex.printStackTrace();
-        }
+        }   
         return lista; 
     }
     
@@ -63,10 +59,10 @@ public class LibrosServiceImpl implements LibrosService {
 		Libro lib=null;
 		try(Connection cn=Datos.getConnection();){
 			
-			String sql = "SELECT * FROM libros WHERE isbn=?";
+			String sql="select * from libros where isbn=?";
 			PreparedStatement ps=cn.prepareStatement(sql);
 			ps.setInt(1, isbn);
-			ResultSet rs = ps.executeQuery();
+			ResultSet rs=ps.executeQuery();
 			if(rs.next()){
 				lib=new Libro(isbn,
 								rs.getString("titulo"),
@@ -82,5 +78,5 @@ public class LibrosServiceImpl implements LibrosService {
         } 
 		return lib;
     }
-    
 }
+

@@ -1,3 +1,4 @@
+
 package service;
 
 import java.sql.Connection;
@@ -8,15 +9,11 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.enterprise.context.RequestScoped;
-import javax.inject.Named;
-
 import model.Tema;
 
-@RequestScoped
-@Named("temasService")
-public class TemasServiceImpl implements TemasService {
+ public class TemasServiceImpl implements TemasService {
 	 
+ 
     @Override
 	public List<Tema> obtenerTemas(){
         List<Tema> lista=new ArrayList<> ();
@@ -52,3 +49,4 @@ public class TemasServiceImpl implements TemasService {
         return tema;
 	}
 }
+

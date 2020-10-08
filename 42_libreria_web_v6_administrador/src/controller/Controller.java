@@ -18,57 +18,73 @@ public class Controller extends HttpServlet {
 	 * @see HttpServlet#service(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String option = request.getParameter("option");
-		String url = "login.jsp";
+		String option=request.getParameter("option");
+		String url="login.jsp";
 		switch(option) {
 			case "doRegistrar":
 				request.getRequestDispatcher("RegistrarAction").include(request, response);
-				url = "login.jsp";
+				url="login.jsp";
 				break;
 			case "doLogin":
 				request.getRequestDispatcher("LoginAction").include(request, response);
-				url = (Boolean)request.getAttribute("resultado") ? "temas.jsp" : "error.html";
+				//llamamos al TemasAction, que ya se encarga de recoger los temas
+				//y ponerlos a disposición de la JSP
+				request.getRequestDispatcher("TemasAction").include(request, response);
+				url=(Boolean)request.getAttribute("resultado")?"temas.jsp":"error.html";
 				break;
 			case "doTemas":
 				request.getRequestDispatcher("TemasAction").include(request, response);
-				url = "temas.jsp";
+				url="temas.jsp";
 				break;
 			case "doLibros":
 				request.getRequestDispatcher("LibrosAction").include(request, response);
-				url = "libros.jsp";
+				url="libros.jsp";
 				break;
+			case "doAgregarCarrito":
+            	request.getRequestDispatcher("AgregarCarritoAction").include(request, response);
+            	//volvemos a recuperar los libros para la página libros.jsp
+        		request.getRequestDispatcher("LibrosAction").include(request, response);
+                url="libros.jsp";
+                break;
+			case "doProcesarCompra":
+            	request.getRequestDispatcher("ProcesarCompraAction").include(request, response);
+            	if((Boolean)request.getAttribute("resultado")) {
+            		//recuperamos de nuevo los temas
+            		request.getRequestDispatcher("TemasAction").include(request, response);
+                    url="temas.jsp";
+            	}else {
+            		url="errorCompra.jsp";
+            	}
+            	
+                break;
+            case "doEliminarCarrito":
+            	request.getRequestDispatcher("EliminarCarritoAction").include(request, response);
+            	//volvemos a recuperar los libros para la página libros.jsp
+        		request.getRequestDispatcher("LibrosAction").include(request, response);
+                url="libros.jsp";
+                break;
+            case "doIdioma":
+            	request.getRequestDispatcher("CambiarIdiomaAction").include(request, response);
+                url="login.jsp";
+                break;
+            case "doConsultarVentas":
+            	request.getRequestDispatcher("ConsultarVentasAction").include(request, response);
+                url="ventas.jsp";
+                break;
 			case "toRegistro":
-				url = "registro.html";
+				url="registro.html";
 				break;
 			case "toSalir":
-				url = "login.jsp";
+				url="login.jsp";
 				break;
-			case "doAgregar":
-				request.getRequestDispatcher("AgregarAction").include(request, response);
-				url = "libros.jsp";
-				break;
-			case "doEliminar":
-				request.getRequestDispatcher("EliminarAction").include(request, response);
-				url = "libros.jsp";
-				break;
-			case "doCompra":
-				request.getRequestDispatcher("ComprarAction").include(request, response);
-				url = (Boolean)request.getAttribute("resultadoVenta") ? "compraTerminada.html" : "errorVenta.jsp";
-				break;
-			case "doIdioma":
-				request.getRequestDispatcher("CambiarIdiomaAction").include(request, response);
-				url = "login.jsp";
-				break;
-			case "toAdministrador":
-				url = "administrador.html";
-				break;
-			case "doVentas":
-				request.getRequestDispatcher("VentasAdminAction").include(request, response);
-				url = "ventas.jsp";
+			case "toAdmin":
+				url="administracion.html";
 				break;
 			
 		}
 		request.getRequestDispatcher(url).forward(request, response);
 	}
 
+	
 }
+

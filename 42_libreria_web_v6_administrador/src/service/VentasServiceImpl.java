@@ -4,74 +4,127 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.enterprise.context.RequestScoped;
-import javax.inject.Named;
 import exceptions.SinLibrosException;
 import model.Cliente;
 import model.Libro;
 import model.Venta;
 
-@RequestScoped
-@Named("ventasService")
 public class VentasServiceImpl implements VentasService {
-
+	private static final double PAGINASIZE=5;
 	@Override
-	public boolean procesarCompra(Cliente cliente, Libro libro) throws SinLibrosException {
-		
-		if(libro == null || cliente == null) {
-			//provocamos una excepcion personalizada
+	public void nuevaVenta(Cliente cliente, List<Libro> libros) throws SinLibrosException{
+		if(cliente==null||libros==null||libros.size()==0) {
+			//provocamos una excepción personalizada
 			throw new SinLibrosException();
 		}
-		try(Connection con = Datos.getConnection();) {                       
-			String sql = "INSERT INTO ventas(idCliente, idLibro, fecha) values(?, ?, NOW())";
-			PreparedStatement st = con.prepareStatement(sql);
-			st.setInt(1, cliente.getIdCliente());
-			st.setInt(2, libro.getIsbn());
-			st.execute();
-			return true;
+		try(Connection cn=Datos.getConnection();) {                       	           
+            String sql="insert into ventas (idCliente, idLibro, fecha) values(?,?,?)";
+            //creamos consulta preparada:
+            PreparedStatement ps=cn.prepareStatement(sql);
+               //Sustituimos parametros por valores
+            for(Libro libro:libros) {
+            	ps.setInt(1, cliente.getIdCliente());
+            	ps.setInt(2, libro.getIsbn());
+            	ps.setTimestamp(3, java.sql.Timestamp.valueOf(LocalDateTime.now()));
+            	ps.execute();
+            }
+            
         }  catch (SQLException ex) {
             ex.printStackTrace();
-            return false;
         }
+
 	}
 
 	@Override
-	public List<Venta> recuperarVentas() {
-		List<Venta> listaVentas = new ArrayList<Venta>();
-		String usuario = null;
-		String titulo = null;
-		
-		try (Connection con = Datos.getConnection();) {                       
-			String sql = "SELECT * FROM ventas";
-			Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery(sql);
-            while (rs.next()){
-            	String sqlUsuario = "SELECT * FROM clientes WHERE idCliente=" + rs.getInt("idCliente");
-    			Statement stUsuario = con.createStatement();
-                ResultSet rsUsuario = stUsuario.executeQuery(sqlUsuario);
-                if (rsUsuario.next()) {
-                	usuario = rsUsuario.getString("usuario");
-                }
-                
-                String sqlTitulo = "SELECT * FROM libros WHERE isbn=" + rs.getInt("idLibro");
-    			Statement stTitulo = con.createStatement();
-                ResultSet rsTitulo = stTitulo.executeQuery(sqlTitulo);
-                if (rsTitulo.next()) {
-                	titulo = rsTitulo.getString("titulo");
-                }
-                
-                listaVentas.add(new Venta(titulo,
-                        usuario,
-                        rs.getDate("fecha")));
+	public List<Venta> obtenerVentas() {
+		String sql="select * from ventas, clientes, libros ";
+		sql+=" where ventas.idCliente=clientes.idCliente and";
+		sql+=" ventas.idLibro=libros.isbn";
+		List<Venta> ventas=new ArrayList<>();
+		try(Connection cn=Datos.getConnection();) {                       	                      
+            //creamos consulta preparada:
+            PreparedStatement ps=cn.prepareStatement(sql);
+               //Sustituimos parametros por valores
+            ResultSet rs=ps.executeQuery();
+            while(rs.next()) {
+            	Libro vendido=new Libro(rs.getInt("isbn"),
+						rs.getString("titulo"),
+						rs.getString("autor"),
+						rs.getInt("precio"),
+						rs.getInt("paginas"),
+						rs.getInt("idTema"));
+				Cliente comprador=new Cliente(
+						rs.getInt("idCliente"),
+						rs.getString("usuario"),
+						rs.getString("password"),
+						rs.getString("email"),
+						rs.getInt("telefono"));
+				Venta realizada=new Venta(comprador, vendido,rs.getTimestamp("fecha").toLocalDateTime());
+				ventas.add(realizada);
             }
+            
         }  catch (SQLException ex) {
             ex.printStackTrace();
         }
-		return listaVentas;
+		return ventas;
+				
+	}
+
+	@Override
+	public List<Venta> obtenerVentasPorPagina(int numeroPagina) {
+		String sql="select * from ventas, clientes, libros ";
+		sql+=" where ventas.idCliente=clientes.idCliente and";
+		sql+=" ventas.idLibro=libros.isbn";
+		sql+=" limit "+(int)PAGINASIZE+" offset "+(numeroPagina-1)*(int)PAGINASIZE;
+		List<Venta> ventas=new ArrayList<>();
+		try(Connection cn=Datos.getConnection();) {                       	                      
+            //creamos consulta preparada:
+            PreparedStatement ps=cn.prepareStatement(sql);
+               //Sustituimos parametros por valores
+            ResultSet rs=ps.executeQuery();
+            while(rs.next()) {
+            	Libro vendido=new Libro(rs.getInt("isbn"),
+						rs.getString("titulo"),
+						rs.getString("autor"),
+						rs.getInt("precio"),
+						rs.getInt("paginas"),
+						rs.getInt("idTema"));
+				Cliente comprador=new Cliente(
+						rs.getInt("idCliente"),
+						rs.getString("usuario"),
+						rs.getString("password"),
+						rs.getString("email"),
+						rs.getInt("telefono"));
+				Venta realizada=new Venta(comprador, vendido,rs.getTimestamp("fecha").toLocalDateTime());
+				ventas.add(realizada);
+            }
+            
+        }  catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+		return ventas;
+	}
+
+	@Override
+	public int paginasVentas() {
+		int paginas=0;
+		try(Connection cn=Datos.getConnection();) {                       	           
+            String sql="select count(*) from ventas";
+            //creamos consulta preparada:
+            PreparedStatement ps=cn.prepareStatement(sql);
+               //Sustituimos parametros por valores
+            ResultSet rs=ps.executeQuery();
+            rs.next();
+            paginas=(int)Math.ceil(rs.getInt(1)/PAGINASIZE);
+            
+        }  catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+		return paginas;
 	}
 
 }

@@ -2,13 +2,13 @@ package controller;
 
 import java.io.IOException;
 
-import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import service.LibreriaFactory;
 import service.TemasService;
 
 
@@ -22,11 +22,10 @@ public class TemasAction extends HttpServlet {
 	/**
 	 * @see HttpServlet#service(HttpServletRequest request, HttpServletResponse response)
 	 */
-	@Inject
-	TemasService gtemas;
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		TemasService gtemas=LibreriaFactory.getTemasService();
+		request.setAttribute("temas", gtemas.obtenerTemas());
 		
-		request.setAttribute("temas", gtemas.obtenerTemas());	
 	}
 
 }

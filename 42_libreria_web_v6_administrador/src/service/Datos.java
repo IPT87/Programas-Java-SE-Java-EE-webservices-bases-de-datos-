@@ -10,13 +10,13 @@ import javax.sql.DataSource;
 
 //Service Locator
 public class Datos  {
-	static String ref = "reflibros"; 
+	static String ref="reflibros"; 
 	static DataSource ds;
 	static {
 		try {
-			Context context = new InitialContext();
-			ds = (DataSource)context.lookup("java:comp/env/" + ref);
-		} catch (NamingException e) {
+			Context context=new InitialContext();
+			ds=(DataSource)context.lookup("java:comp/env/"+ref);
+		}catch(NamingException e) {
 			e.printStackTrace();
 			
 		}	
@@ -26,4 +26,5 @@ public class Datos  {
 			return ds.getConnection();
 	}
 
+	
 }

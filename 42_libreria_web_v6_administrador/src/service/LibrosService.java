@@ -11,5 +11,4 @@ public interface LibrosService {
 	List<Libro> recuperarLibros(int idTema);
 	
 	Libro recuperarLibroPorIsbn(int isbn);
-
 }

@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -19,9 +20,10 @@ public class CambiarIdiomaAction extends HttpServlet {
 	 * @see HttpServlet#service(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String idioma = request.getParameter("idioma");
-		HttpSession sesion = request.getSession();
+		String idioma=request.getParameter("idioma");
+		HttpSession sesion=request.getSession();
 		sesion.setAttribute("javax.servlet.jsp.jstl.fmt.locale.session", idioma);
 	}
 
 }
+

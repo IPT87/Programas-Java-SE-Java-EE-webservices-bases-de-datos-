@@ -1,6 +1,7 @@
 package filtros;
 
 import java.io.IOException;
+
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -19,13 +20,18 @@ public class FiltroLogin implements Filter {
 
     
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-		HttpSession sesion = ((HttpServletRequest) request).getSession();
-		//si el metodo isNew devuelve true, la sesion se acaba de crear, por tanto el usuario
-		//que ha entrado no tenia sesion
-		if(sesion.getAttribute("cliente") == null) {
+		HttpSession sesion=((HttpServletRequest)request).getSession();
+		//String path=((HttpServletRequest)request).getServletPath();
+		//si el método isNew devuelve true, la sesión se acaba de crear, por tanto, el usuario
+		//que ha entrado no tenía sesión
+		
+		
+		if(sesion.getAttribute("cliente")==null) {
 			request.getRequestDispatcher("login.jsp").forward(request, response);
+		}else {
+			chain.doFilter(request, response);
 		}
-		chain.doFilter(request, response);
+		
 	}
 
 	/**
@@ -36,3 +42,4 @@ public class FiltroLogin implements Filter {
 	}
 
 }
+

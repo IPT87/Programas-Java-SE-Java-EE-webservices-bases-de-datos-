@@ -8,9 +8,8 @@ import model.Libro;
 import model.Venta;
 
 public interface VentasService {
-	
-	boolean procesarCompra(Cliente cliente, Libro libro) throws SinLibrosException;
-	
-	List<Venta> recuperarVentas();
-	
+	void nuevaVenta(Cliente cliente,List<Libro> libros) throws SinLibrosException;
+	List<Venta> obtenerVentas();
+	List<Venta> obtenerVentasPorPagina(int numeroPagina);
+	int paginasVentas();
 }
