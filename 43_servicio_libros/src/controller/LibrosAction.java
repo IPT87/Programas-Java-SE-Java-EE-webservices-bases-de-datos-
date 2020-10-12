@@ -23,19 +23,15 @@ import util.Utilidades;
 @WebServlet("/LibrosAction")
 public class LibrosAction extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
-	/**
-	 * @see HttpServlet#service(HttpServletRequest request, HttpServletResponse response)
-	 */
 	@Inject
-	LibrosService librosService;
+	LibrosService service;
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		List<Libro> libros = librosService.recuperarLibros();
-		JSONArray array = new JSONArray();
-		libros.forEach(libro -> array.add(Utilidades.adaptadorLibroAJSON(libro)));
+		List<Libro> libros=service.recuperarLibros();
+		JSONArray array=new JSONArray();
+		libros.forEach(libro->array.add(Utilidades.adaptadorLibroAJson(libro)));
 		response.setContentType("application/json");
-		response.setCharacterEncoding("iso-8859-1");
-		PrintWriter out = response.getWriter();
+		response.setCharacterEncoding("UTF-8");
+		PrintWriter out=response.getWriter();
 		out.print(array);
 	}
 

@@ -1,16 +1,12 @@
 package model;
 
 public class Libro {
-    private int isbn;
-    private String titulo;
-    private String autor;
-    private double precio;
-    private int paginas;
-    private Tema tema;
-    
-	public Libro() {
-		super();
-	}
+	private int isbn;
+	private String titulo;
+	private String autor;
+	private double precio;
+	private int paginas;
+	private Tema tema;
 
 	public Libro(int isbn, String titulo, String autor, double precio, int paginas, Tema tema) {
 		super();
@@ -20,6 +16,10 @@ public class Libro {
 		this.precio = precio;
 		this.paginas = paginas;
 		this.tema = tema;
+	}
+
+	public Libro() {
+		super();
 	}
 
 	public int getIsbn() {
@@ -71,4 +71,3 @@ public class Libro {
 	}
 
 }
-
