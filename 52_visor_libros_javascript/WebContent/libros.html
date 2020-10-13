@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Libros</title>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+
+	var url = "http://localhost:8080/43_servicio_libros/LibrosAction";
+	var con;
+	var arrayLibros;
+
+	function cargarLibros() {
+		con = new XMLHttpRequest();
+		con.open("GET", url, true);
+		con.onreadystatechange = procesarRespuesta;
+		con.send(null);
+	}
+	
+	function procesarRespuesta() {
+		if (con.readyState == 4) {
+			var lista = document.getElementById("listaTemas");
+			arrayLibros = JSON.parse(con.responseText);
+			var arraySinDuplicados = eliminarDuplicados(arrayLibros);
+			
+			for (var ob of arraySinDuplicados) {
+				var opcion = document.createElement("option");
+				opcion.value = ob.tematica.nombre;
+				opcion.text = ob.tematica.nombre;
+				lista.appendChild(opcion);
+			}
+		}
+	}
+	
+	function datosLibro(){
+		var cadena = "";
+		var temaSeleccionado = document.getElementById("listaTemas").value;
+		
+		for(var libro of arrayLibros) {
+			if (libro.tematica.nombre == temaSeleccionado) {
+				cadena+= "<tr><td>" + libro.titulo + "</td>" + "<td>" + libro.autor + "</td>" + "<td>" + libro.precio + "</td></tr>";
+			}
+		}
+		document.getElementById("pintarCeldas").innerHTML = cadena;
+	}
+	
+	function eliminarDuplicados(arr) {
+		var newArr = [];
+		var duplicado = false;
+		
+		for (var ob of arr) {
+			if (newArr.length == 0) {
+				newArr.push(ob);
+			} else {
+				for (var ob1 of newArr) {
+					if (ob1.tematica.nombre == ob.tematica.nombre) {
+						duplicado = true;
+						break;
+					}
+				}
+				if (duplicado == false) {
+					newArr.push(ob);
+				}
+				duplicado = false;
+			}
+		}
+		return newArr;
+	}
+	
+</script>
+
+<style>
+	body {text-align:center;}
+	#tablaLibros, tr,th,td {
+		border: 1px solid black;
+		border-collapse: collapse;
+	}
+	#t01 {
+		width: 60%;
+	}
+	th {background-color: #777799;
+		color: #FFFFFF;
+		text-align: center;}
+</style>
+</head>
+<body onload="cargarLibros();">
+	<div class="container-fluid" align="center">
+		<h1>Seleccione tema: </h1><select id="listaTemas"></select>
+		<br/><br/>
+		<input type="button" value="Ver libros" onclick="datosLibro();">
+		<br/><br/>
+	</div>
+	
+	<div class="container" >
+		<table id="tablaLibros" class="table table-striped table-bordered">
+			<thead>
+				<tr>
+					<th>Titulo</th>
+					<th>Autor</th>
+					<th>Precio</th>
+				</tr>
+			</thead>
+			<tbody id="pintarCeldas">
+
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>
