@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<script type="text/javascript">
+	function factorial() {
+		var resultado = 1;
+		var numero = document.getElementById("numero").value;
+		for (var i = 1; i <= numero; i++) {
+			resultado *= i;
+		}
+		//alert("El factorial de " + numero + " es: " + resultado);
+		document.getElementById("res").innerHTML="<b>El factorial de " + numero + " es: " + resultado + "<b>";
+	}
+</script>
+</head>
+<body>
+	<center>
+		Itroduce numero: <input type="text" id="numero"/><br/><br/>
+		<input type="button" onclick="factorial();" value="Calcular"/>
+		<br/><br/>
+		<div id="res">
+			
+		</div>
+	</center>
+</body>
+</html>
