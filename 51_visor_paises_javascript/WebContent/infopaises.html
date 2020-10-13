@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<style>
+
+h1   {color: background;
+  text-shadow: 1px 1px 2px black, 0 0 25px blue, 0 0 5px darkblue; font-family: Courier New}
+body {
+  background-color: silver;
+}
+</style>
+<script type="text/javascript">
+
+	var url = "https://restcountries.eu/rest/v2/all";
+	var con;
+	var arrayPaises;
+
+	function cargarPaises() {
+		con = new XMLHttpRequest();
+		con.open("GET", url, true); //configuracion de la peticion
+		con.onreadystatechange = procesarRespuesta; //indicamos la funcion de retrollamada
+		con.send(null); //lanzamos la peticion, indicando que el cuerpo de la peticion esta vacio
+	}
+	
+	function procesarRespuesta() {
+		if (con.readyState == 4) {
+			var lista = document.getElementById("listaNombres");
+			arrayPaises = JSON.parse(con.responseText); //guardamos en una variable el array de paises obtenidos
+			for (var ob of arrayPaises) {
+				var opcion = document.createElement("option"); //crea el objeto HTML <option>
+				opcion.value = ob.name;
+				opcion.text = ob.name;
+				lista.appendChild(opcion); //añadir objetos HTML dentro de otros
+			}
+		}
+	}
+	
+	function datosPais() {
+		var nombreSeleccionado = document.getElementById("listaNombres").value;
+		var resultado = document.getElementById("datosPais");
+		for (var pais of arrayPaises) {
+			if (pais.name == nombreSeleccionado) { //si encontramos el pais seleccionado, mostramos sus datos en el div
+				var html = "<h2>Pais: " + pais.name + "</h2>";
+				html += "<h2>Capital: " + pais.capital + "</h2>";
+				html += "<h2>Habitantes: " + pais.population + "</h2>";
+				html += "<img src='" + pais.flag + "'/>";
+				break;
+			}
+		}
+		resultado.innerHTML = html;
+	}
+</script>
+<title>Info paises</title>
+</head>
+<body onload="cargarPaises();">
+	<div class="container-fluid" align="center">
+		<h1>Informacion Paises</h1>
+		<select id="listaNombres">
+			
+		</select>
+		<br/><br/>
+		<input type="button" value="Ver datos" onclick="datosPais();">
+		<br/><br/>
+		<div id="datosPais">
+			
+		</div>
+	</div>
+</body>
+</html>
