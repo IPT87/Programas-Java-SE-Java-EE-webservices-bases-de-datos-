@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Conociendo a JavaScript</title>
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+	<!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+<script type="text/javascript">
+	var arrayPedidos = [];
+	function guardar(){
+		var pedido = new Object(); 
+		pedido.producto = document.getElementById("producto").value;
+		pedido.unidades = document.getElementById("unidades").value;
+		arrayPedidos.push(pedido);
+	}
+	
+	function mostrar(){
+		var cadena = "";
+		/*for(var i=0;i<arrayPedidos.length;i++){
+			cadena+= "<tr><td>"+arrayPedidos[i].producto+"</td>"+
+				"<td>"+arrayPedidos[i].unidades+"</td></tr>";		
+		}*/
+		for(var pedido of arrayPedidos){
+			cadena+= "<tr><td>"+pedido.producto+"</td>"+
+				"<td>"+pedido.unidades+"</td></tr>";
+		}
+		document.getElementById("pintarCeldas").innerHTML = cadena;
+	}
+
+	
+		
+</script>
+<style>
+	body {text-align:center;}
+	#t01, tr,th,td {
+		border: 1px solid black;
+		border-collapse: collapse;
+	}
+	#t01 {
+		width: 60%;
+	}
+	th {background-color: #777799;
+		color: #FFFFFF;
+		text-align: center;}
+</style>
+
+</head>
+<body>
+	<div class="container">
+		<form class="form-horizontal">
+			<div class="form-group">
+				<br/>
+				<p>Producto: <input type="text" id="producto" placeholder="producto"/></p>
+				<p>Unidades: <input type="text" id="unidades" placeholder="unidades"/></p><br/>  
+				<input class="form-control" style="width:20%" type="button" value="Guardar" onclick="guardar();"/>
+				<input class="form-control" style="width:20%" type="button" value="Ver pedidos" onclick="mostrar();"/>
+				
+				<br/><br/>
+			</div>
+		</form>
+	</div>	
+		
+	<div class="container" >
+		<table id="t01" class="table table-striped table-bordered">
+			<thead>
+				<tr>
+					<th>Producto</th>
+					<th>Unidades</th>
+				</tr>
+			</thead>
+			<tbody id="pintarCeldas">
+
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>
