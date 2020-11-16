@@ -22,12 +22,19 @@ public class ContactosService {
 	}
 
 	public Contacto buscarContacto(String clave) {
+		
+		Contacto contacto = persona.get(clave);
 
-		if (persona.containsKey(clave)) {
+		/*if (persona.containsKey(clave)) {
 			return persona.get(clave);
 		} else {
 			return null;
+		}*/
+		
+		if(contacto != null) {
+			return new Contacto(contacto.getNombre(), contacto.getEmail(), contacto.getTelefono());
 		}
+		return null;
 	}
 
 	public boolean eliminarContacto(String email) {
@@ -41,6 +48,16 @@ public class ContactosService {
 
 	public Contacto[] verTodos() {
 		Collection<Contacto> contactos = persona.values();
-		return contactos.toArray(new Contacto[0]);
+		
+		Contacto[] nuevosContactos = new Contacto[contactos.size()];
+		
+		int i = 0;
+		for(Contacto c : contactos) {
+			nuevosContactos[i] = new Contacto(c.getNombre(), c.getEmail(), c.getTelefono());
+			i++;
+		}
+		
+		//return contactos.toArray(new Contacto[0]);
+		return nuevosContactos;
 	}
 }
