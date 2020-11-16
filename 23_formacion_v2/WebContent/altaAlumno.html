@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Nuevo alumno</title>
+</head>
+<body>
+	<form action="FrontController?option=doAltaAlumno" method="post">
+		Usuario <input type="text" name="usuario" required="required"/>
+		<br/><br/>
+		Edad <input type="number" name="edad" required="required"/>
+		<br/><br/>
+		Email <input type="email" name="email" required="required"/>
+		<br/><br/>
+		Nombre <input type="text" name="nombreAlumno" required="required"/>
+		<br/><br/>
+		Password <input type="password" name="password" required="required"/>
+		<br/><br/>
+		<input type="submit" value="Guardar"/>
+		<br/><br/>
+		<h3><a href="FrontController?option=toInicio">Volver</a></h3>
+	</form>
+</body>
+</html>
