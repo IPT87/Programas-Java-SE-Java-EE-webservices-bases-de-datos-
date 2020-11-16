@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Nuevo curso</title>
+</head>
+<body>
+	<form action="FrontController?option=doAltaCurso" method="post">
+		Fecha inicio <input type="date" name="fechaInicio" required="required"/>
+		<br/><br/>
+		Duracion <input type="number" name="duracion" required="required"/>
+		<br/><br/>
+		Nombre <input type="text" name="nombreCurso" required="required"/>
+		<br/><br/>
+		<input type="submit" value="Guardar"/>
+		<br/><br/>
+		<h3><a href="FrontController?option=toInicio">Volver</a></h3>
+	</form>
+</body>
+</html>
