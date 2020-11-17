@@ -21,5 +21,7 @@ public interface FormacionService {
 	List<Alumno> buscarPorCurso(String curso);
 	
 	List<Curso> buscarPorAlumno(String user);
+	
+	List<Alumno> alumnos();
 
 }

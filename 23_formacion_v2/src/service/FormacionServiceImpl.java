@@ -43,7 +43,7 @@ public class FormacionServiceImpl implements FormacionService {
 
 	@Override
 	public List<Alumno> buscarPorNota(double nota) {
-		String jpql = "SELECT a FROM Alumno a join a.matriculas m WHERE m.nota >= ?1";
+		String jpql = "SELECT DISTINCT a FROM Alumno a join a.matriculas m WHERE m.nota >= ?1";
 		TypedQuery<Alumno> query = em.createQuery(jpql, Alumno.class);
 		query.setParameter(1, nota);
 		return query.getResultList();
@@ -62,6 +62,12 @@ public class FormacionServiceImpl implements FormacionService {
 		String jpql = "SELECT c FROM Curso c JOIN c.matriculas m WHERE m.alumno.usuario = ?1";
 		TypedQuery<Curso> query = em.createQuery(jpql, Curso.class);
 		query.setParameter(1, user);
+		return query.getResultList();
+	}
+
+	@Override
+	public List<Alumno> alumnos() {
+		TypedQuery<Alumno> query = em.createNamedQuery("Alumno.findAll", Alumno.class);
 		return query.getResultList();
 	}
 	

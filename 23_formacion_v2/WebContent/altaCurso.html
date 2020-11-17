@@ -1,20 +1,42 @@
 <!DOCTYPE html>
 <html>
 <head>
+<style>
+table, th, td {
+	border: 1px solid GRAY;
+	border-collapse: collapse;
+}
+a{
+	color:LIGHTSLATEGRAY;
+}
+h1{
+	color:DARKSALMON;
+}
+legend{
+	color:INDIANRED;
+}
+</style>
 <meta charset="ISO-8859-1">
 <title>Nuevo curso</title>
 </head>
 <body>
-	<form action="FrontController?option=doAltaCurso" method="post">
-		Fecha inicio <input type="date" name="fechaInicio" required="required"/>
-		<br/><br/>
-		Duracion <input type="number" name="duracion" required="required"/>
-		<br/><br/>
-		Nombre <input type="text" name="nombreCurso" required="required"/>
-		<br/><br/>
-		<input type="submit" value="Guardar"/>
-		<br/><br/>
-		<h3><a href="FrontController?option=toInicio">Volver</a></h3>
-	</form>
+	<fieldset>
+		<legend>Datos Curso</legend>
+		<form action="FrontController?option=doAltaCurso" method="post">
+			Fecha inicio<br/>
+			<input type="date" name="fechaInicio" required="required"/>
+			<br/>
+			Duracion<br/>
+			<input type="number" name="duracion" required="required"/>
+			<br/>
+			Nombre<br/>
+			<input type="text" name="nombreCurso" required="required"/>
+			<br/><br/>
+			<input type="submit" value="Guardar"/>
+			<input type="reset">
+			<br/><br/>
+			<h3><a href="FrontController?option=toInicio">Volver</a></h3>
+		</form>
+	</fieldset>
 </body>
 </html>

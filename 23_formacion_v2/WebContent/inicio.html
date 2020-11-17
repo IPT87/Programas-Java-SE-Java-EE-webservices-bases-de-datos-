@@ -1,14 +1,32 @@
 <!DOCTYPE html>
 <html>
 <head>
+<style>
+table, th, td {
+	border: 1px solid GRAY;
+	border-collapse: collapse;
+}
+a{
+	color:LIGHTSLATEGRAY;
+}
+h1{
+	color:DARKSALMON;
+}
+legend{
+	color:INDIANRED;
+}
+</style>
 <meta charset="ISO-8859-1">
 <title>Inicio</title>
 </head>
 <body>
-	<h3><a href="FrontController?option=toNuevoAlumno">Nuevo alumno</a></h3>
-	<h3><a href="FrontController?option=toNuevoCurso">Nuevo curso</a></h3>
-	<h3><a href="FrontController?option=toBuscarAlumnosNota">Buscar alumnos por nota</a></h3>
-	<h3><a href="FrontController?option=toBuscarAlumnosCurso">Buscar alumnos por curso</a></h3>
-	<h3><a href="FrontController?option=toBuscarCursosAlumno">Buscar cursos por alumno</a></h3>
+	<fieldset>
+		<legend>Menu</legend>
+		<h3><a href="FrontController?option=toNuevoAlumno">Nuevo alumno</a></h3>
+		<h3><a href="FrontController?option=toNuevoCurso">Nuevo curso</a></h3>
+		<h3><a href="FrontController?option=toBuscarAlumnosNota">Buscar alumnos por nota</a></h3>
+		<h3><a href="FrontController?option=toBuscarAlumnosCurso">Buscar alumnos por curso</a></h3>
+		<h3><a href="FrontController?option=toBuscarCursosAlumno">Buscar cursos por alumno</a></h3>
+	</fieldset>
 </body>
 </html>
