@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<h1>Nuevo candidato</h1>
+	<form action="FrontController?option=doAltaCandidato" method="post" enctype="multipart/form-data">	
+		Nombre<br/>
+		<input type="text" name="nombre" placeholder="Introduce tu nombre" required="required">
+		<br/>
+		Edad<br/>
+		<input type="number" name="edad" placeholder="Introduce tu edad" required="required">
+		<br/>
+		Puesto<br/>
+		<input type="text" name="puesto" placeholder="Introduce tu puesto" required="required">
+		<br/>
+		Foto<br/>
+		<input type="file" name="foto" value="Buscar" accept="image/*"/>
+		<br/>
+		Email<br/>
+		<input type="text" name="email" placeholder="Introduce tu email" required="required">
+		<br/><br/>
+		<input type="submit" value="Guardar">	
+	</form>
+	<p align="right"><a href="FrontController?option=toMenu">Volver al menu</a></p>
+</body>
+</html>
