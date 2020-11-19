@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jee="http://www.springframework.org/schema/jee"
+	xsi:schemaLocation="http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-4.3.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+	<!-- 1. Habilite configuracion mediante anotaciones. -->
+	<context:annotation-config/>
+	<!-- 2. Escanea los paquetes en los que se encuentran las clases que debe instanciar. -->
+	<context:component-scan base-package="service"/>
+	<!-- datasource de Spring -->
+	<bean id="data" name="data"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="url"
+			value="jdbc:mysql://localhost:3306/empresa?serverTimezone=UTC">
+		</property>
+		<property name="driverClassName"
+			value="com.mysql.cj.jdbc.Driver">
+		</property>
+		<property name="username" value="root"></property>
+		<property name="password" value="root"></property>
+	</bean>
+	<bean id="data2" name="data2"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="url"
+			value="jdbc:mysql://localhost:3306/formacion?serverTimezone=UTC">
+		</property>
+		<property name="driverClassName"
+			value="com.mysql.cj.jdbc.Driver">
+		</property>
+		<property name="username" value="root"></property>
+		<property name="password" value="root"></property>
+	</bean>
+	
+	<!-- datasource del servidor de app -->
+	<jee:jndi-lookup jndi-name="refempresa" id="data3"/>
+	
+	
+	<bean id="template"
+		class="org.springframework.jdbc.core.JdbcTemplate">
+		<property name="dataSource" ref="data"></property>
+	</bean>
+</beans>
