@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	<form action="FrontController?option=doInscripcion" method="post">
+		Empresa<br/>
+		<input type="text" name="empresa" required="required"/>
+		<br/><br/>
+		Posicion<br/>
+		<input type="text" name="posicion" required="required"/>
+		<br/><br/>
+		Salario<br/>
+		<input type="number" name="salario" required="required"/>
+		<br/><br/>
+		ID Candidato<br/>
+		<input type="number" name="idCandidato" required="required"/>
+		<br/><br/>
+		<input type="submit" value="Guardar"/>
+		<br/><br/>
+		<h3><a href="FrontController?option=toMenu">Volver</a></h3>
+	</form>
+</body>
+</html>
