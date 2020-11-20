@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"
-    import="java.util.List, model.Candidato,service.CandidatosServiceImpl"%>
+    import="java.util.List, model.Candidato,service.CandidatosService"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,7 +9,7 @@
 </head>
 <body style="font-family:verdana; background-color:powderblue;">
 	<%
-		CandidatosServiceImpl service = new CandidatosServiceImpl(); 
+		CandidatosService service = new CandidatosService(); 
 		  List<Candidato> candidatos = service.recuperarCandidatos();
 	%>
 	

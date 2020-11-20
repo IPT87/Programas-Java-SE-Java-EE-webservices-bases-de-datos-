@@ -31,7 +31,7 @@ public class Candidato implements Serializable {
 	private String puesto;
 
 	//bi-directional many-to-one association to Inscripcion
-	@OneToMany(mappedBy="candidato")
+	@OneToMany(mappedBy="candidato", cascade = CascadeType.REMOVE)
 	private List<Inscripcion> inscripciones;
 
 	public Candidato() {
