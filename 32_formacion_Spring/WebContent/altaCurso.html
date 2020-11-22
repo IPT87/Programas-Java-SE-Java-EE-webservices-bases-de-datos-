@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+table, th, td {
+	border: 1px solid GRAY;
+	border-collapse: collapse;
+}
+a {
+	color:LIGHTSLATEGRAY;
+}
+h1 {
+	color:DARKSALMON;
+}
+legend {
+	color:INDIANRED;
+}
+</style>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	<fieldset>
+		<form action="FrontController?option=doAltaCurso" method="POST">
+			Curso<br/>
+			<input type="text" name="curso" placeholder="Introduce curso" required="required"/>
+			<br/>
+			Duracion<br/>
+			<input type="number" name="duracion" placeholder="Introduceduracion" required="required"/>
+			<br/>
+			Fecha inicio<br/>
+			<input type="date" name="fechaInicio" required="required"/>
+			<br/><br/>
+			<input type="submit" value="Guardar"/>
+			<input type="reset" value="Reset"/>
+			<br/><br/>
+			<p align="right"><a href="FrontController?option=toInicio">Volver al menu</a></p>
+		</form>
+	</fieldset>
+</body>
+</html>

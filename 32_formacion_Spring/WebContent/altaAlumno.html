@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+table, th, td {
+	border: 1px solid GRAY;
+	border-collapse: collapse;
+}
+a {
+	color:LIGHTSLATEGRAY;
+}
+h1 {
+	color:DARKSALMON;
+}
+legend {
+	color:INDIANRED;
+}
+</style>
+<meta charset="ISO-8859-1">
+<title>Nuevo alumno</title>
+</head>
+<body>
+	<fieldset>
+		<form action="FrontController?option=doAltaAlumno" method="POST">
+			Nombre<br/>
+			<input type="text" placeholder="Introduce tu nombre" name="nombre" required="required"/>
+			<br/>
+			Edad<br/>
+			<input type="number" placeholder="Introduce tu edad" name="edad" required="required"/>
+			<br/>
+			Email<br/>
+			<input type="email" placeholder="Introduce tu email" name="email" required="required"/>
+			<br/>
+			Usuario<br/>
+			<input type="text" placeholder="Introduce nombre de usuario" name="usuario" required="required"/>
+			<br/>
+			Contraseña<br/>
+			<input type="password" placeholder="Introduce contraseña" name="password" required="required"/>
+			<br/><br/>
+			<input type="submit" value="Registrar"/>
+			<input type="reset"/>
+			<br/><br/>
+			<p align="right"><a href="FrontController?option=toInicio">Volver al menu</a></p>
+		</form>
+	</fieldset>
+</body>
+</html>

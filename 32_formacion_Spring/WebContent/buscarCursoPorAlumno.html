@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+table, th, td {
+	border: 1px solid GRAY;
+	border-collapse: collapse;
+}
+a {
+	color:LIGHTSLATEGRAY;
+}
+h1 {
+	color:DARKSALMON;
+}
+legend {
+	color:INDIANRED;
+}
+</style>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	<fieldset>
+		<form action="FrontController?option=doBuscarCursoPorAlumno" method="POST">
+			Alumno<br/>
+			<input type="text" name="alumno" placeholder="Introduce alumno" required="required"/>
+			<br/><br/>
+			<input type="submit" value="Buscar"/>
+			<br/><br/>
+		</form>
+		<p align="right"><a href="FrontController?option=toInicio">Volver al menu</a></p>
+	</fieldset>
+</body>
+</html>
