@@ -64,6 +64,14 @@ public class FrontController extends HttpServlet {
 			request.getRequestDispatcher("RecuperarAlumnosAction").include(request, response);
 			url="verAlumnos.jsp";
 			break;
+		case "doVerAlumnos":
+			request.getRequestDispatcher("VerAlumnosAction").include(request, response);
+			url="seleccionarAlumno.jsp";
+			break;
+		case "doVerCursos":
+			request.getRequestDispatcher("VerCursosAction").include(request, response);
+			url="seleccionarCurso.jsp";
+			break;
 		}
 		request.getRequestDispatcher(url).forward(request, response);
 	}

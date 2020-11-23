@@ -38,6 +38,11 @@
 		<property name="dataSource" ref="data"></property>
 		<property name="jpaVendorAdapter" ref="adapter"></property>
 		<property name="packagesToScan" value="model"></property>
+		<!-- <property name="jpaProperties">
+			<props>
+				<prop key="hibernate.enable_lazy_load_no_trans">true</prop>
+			</props>
+		</property> -->
 	</bean>
 	
 	<bean id="txManager"

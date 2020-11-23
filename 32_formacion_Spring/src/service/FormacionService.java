@@ -18,4 +18,8 @@ public interface FormacionService {
 	List<Curso> buscarPorAlumno(String user);
 	
 	List<Alumno> alumnos();
+	
+	void asignarAlumnosCursos(String usuario, int idCurso);
+	
+	List<Curso> cursosDisponibles(String usuario);
 }

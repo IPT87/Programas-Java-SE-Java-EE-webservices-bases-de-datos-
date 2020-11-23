@@ -28,10 +28,11 @@ public class CuentasServiceImpl implements CuentasService {
 
 	@Override
 	public List<Cuenta> recuperarCuentas(int dni) {
-		String jpql="Select c From Cuenta c where c not in (Select distinct c From Cuenta c join c.clientes t Where t.dni=?1)";
+		String jpql="Select c From Cuenta c where c not in (Select distinct c From Cuenta c join c.clientes t Where t.dni=:dni)";
 
 		TypedQuery<Cuenta> query = em.createQuery(jpql, Cuenta.class);
-		query.setParameter(1, dni);
+		//query.setParameter(1, dni);
+		query.setParameter("dni", dni);
 		return query.getResultList();
 	}
 

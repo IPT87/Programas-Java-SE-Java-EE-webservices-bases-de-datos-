@@ -67,4 +67,21 @@ public class FormacionServiceImpl implements FormacionService {
 		return query.getResultList();
 	}
 
+	@Transactional
+	@Override
+	public void asignarAlumnosCursos(String usuario, int idCurso) {
+		Alumno alumno = buscarPorUsuario(usuario);
+		Curso curso = em.find(Curso.class, idCurso);
+		alumno.getCursos().add(curso);
+		em.merge(alumno);
+	}
+
+	@Override
+	public List<Curso> cursosDisponibles(String usuario) {
+		String jpql = "SELECT c FROM Curso c WHERE c NOT IN (SELECT c FROM Curso c JOIN c.alumnos a WHERE a.usuario=?1)";
+		TypedQuery<Curso> query=em.createQuery(jpql,Curso.class);
+		query.setParameter(1, usuario);		
+		return query.getResultList();
+	}
+
 }
