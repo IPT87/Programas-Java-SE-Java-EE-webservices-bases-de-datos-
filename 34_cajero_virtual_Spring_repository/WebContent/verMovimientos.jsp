@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"
-    import="java.util.List, model.Movimiento"%>
+    pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,7 +8,9 @@
 <title>Ver movimientos</title>
 </head>
 <body>
-	<%List<Movimiento> movimientos = (List<Movimiento>)request.getAttribute("movimientos"); %>
+	<c:set var="movimientos" value="${requestScope.movimientos }"/>
+	
+	<h2>Movimientos</h2>
 	
 	<table border="5" bgcolor="lightblue" bordercolor="green" cellpading="5" cellspacing="5">
 		<thead>
@@ -18,14 +20,14 @@
 				<td>Operacion</td>
 			</tr>
 		</thead>
-		<%for (Movimiento movimiento : movimientos) { %>
+		<c:forEach var="movimiento" items="${movimientos }">
 			<tr>
-				<td><%=movimiento.getCantidad() %></td>
-				<td><%=movimiento.getFecha() %></td>
-				<td><%=movimiento.getOperacion() %>
+				<td>${movimiento.cantidad}</td>
+				<td>${movimiento.fecha}</td>
+				<td>${movimiento.operacion}</td>
 			</tr>
-		<%} %>
+		</c:forEach>
 	</table>
-	<h3 align="right">Saldo: <%=request.getAttribute("saldo") %></h3>
+	<h3 align="right">Saldo: ${requestScope.saldo}&euro;</h3>
 </body>
 </html>

@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"
-    import="java.util.List, model.Cuenta"%>
+    pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,10 +11,10 @@
 	<form action="FrontController?option=doAsignarCuenta" method="post" >	
 		Seleccione cuenta<br/>
 		<select name="cuenta">
-			<%List<Cuenta> cuentas=(List<Cuenta>)request.getAttribute("cuentas");
-			for(Cuenta cuenta : cuentas){%>
-			<option value="<%=cuenta.getNumeroCuenta() %>"><%=cuenta.getNumeroCuenta() %></option>
-			<%} %>
+			<c:set var="cuentas" value="${requestScope.cuentas }"/>
+			<c:forEach var="cuenta" items="${cuentas }">
+				<option value="${cuenta.numeroCuenta}">${cuenta.numeroCuenta}</option>
+			</c:forEach>
 		</select>
 		<br/><br/>
 		<p align="center"><input type="submit" value="Asignar"></p>

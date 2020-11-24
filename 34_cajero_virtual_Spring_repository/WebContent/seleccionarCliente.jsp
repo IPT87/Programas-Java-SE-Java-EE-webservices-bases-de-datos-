@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"
-    import="java.util.List, model.Cliente"%>
+    pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,10 +11,11 @@
 	<form action="FrontController?option=doVerCuentas" method="post" >	
 		Seleccione cliente<br/>
 		<select name="cliente">
-			<%List<Cliente> clientes=(List<Cliente>)request.getAttribute("clientes");
-			for(Cliente cliente : clientes){%>
-			<option value="<%=cliente.getDni() %>"><%=cliente.getNombre() %></option>
-			<%} %>
+			<c:set var="clientes" value="${requestScope.clientes }"/>
+
+			<c:forEach var="cliente" items="${clientes }">
+				<option value="${cliente.dni}">${cliente.nombre}</option>
+			</c:forEach>
 		</select>
 		<br/><br/>
 		<p align="center"><input type="submit" value="Siguente"></p>

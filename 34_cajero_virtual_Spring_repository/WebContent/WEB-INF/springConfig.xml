@@ -16,7 +16,7 @@
 	<bean id="data" 
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="url"
-			value="jdbc:mysql://localhost:3306/bancabd?serverTimezone=UTC">
+			value="jdbc:mysql://localhost:3306/bancabd?serverTimezone=Europe/Madrid">
 		</property>
 		<property name="driverClassName"
 			value="com.mysql.cj.jdbc.Driver">
