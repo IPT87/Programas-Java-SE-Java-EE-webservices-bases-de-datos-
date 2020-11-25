@@ -35,7 +35,7 @@ public class CajeroRepositoryImpl implements CajeroRepository {
 		cuenta.getMovimientos().add(movimiento);
 		cuenta.setSaldo(cantidad + saldo(numeroCuenta));
 		em.merge(cuenta);
-		em.merge(movimiento);
+		em.persist(movimiento);
 	}
 
 	@Transactional
@@ -49,7 +49,7 @@ public class CajeroRepositoryImpl implements CajeroRepository {
 			cuenta.getMovimientos().add(movimiento);
 			cuenta.setSaldo(saldo(numeroCuenta) - cantidad);
 			em.merge(cuenta);
-			em.merge(movimiento);
+			em.persist(movimiento);
 			return true;
 		}
 	}
@@ -73,7 +73,7 @@ public class CajeroRepositoryImpl implements CajeroRepository {
 	@Transactional
 	@Override
 	public boolean transferencia(int numCuentaOrigen, int numCuentaDestino, double cantidad) {
-		if (saldo(numCuentaOrigen) - cantidad > 0) {
+		if (saldo(numCuentaOrigen) - cantidad > 0 && verificarCliente(numCuentaDestino)) {
 			ingresar(cantidad, numCuentaDestino);
 			sacar(cantidad, numCuentaOrigen);
 			return true;
