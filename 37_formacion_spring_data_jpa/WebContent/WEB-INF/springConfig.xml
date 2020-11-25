@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+	xsi:schemaLocation="http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-4.3.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa-1.11.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+	<!-- 1. Habilite configuración mediante anotaciones -->
+	<context:annotation-config/>
+	<!-- 2. Escanee los paquetes en los que se encuentran las clases que debe instanciar -->
+	<context:component-scan base-package="service, repository"/>
+	<!-- datasource del servidor -->
+	<jee:jndi-lookup jndi-name="refformacion" id="dataServidor"/>
+	
+	<!-- configuración integración Spring-JPA-Hibernate -->
+	<!-- creación adaptador JPA-Hibernate -->
+	<bean id="adapter"
+		class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+		<property name="databasePlatform"
+			value="org.hibernate.dialect.MySQLDialect">
+		</property>
+	</bean>
+	
+	<!-- configuración JPA -->
+	<bean id="factory"
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="persistenceUnitName" value="formacionPU"></property>
+		<property name="dataSource" ref="dataServidor"></property>
+		<property name="jpaVendorAdapter" ref="adapter"></property>
+		<property name="packagesToScan" value="model"></property>
+		<property name="jpaProperties">
+			<props>
+				<prop key="hibernate.enable_lazy_load_no_trans">true</prop>
+			</props>
+		</property>
+	</bean>	
+	<!-- transaccionalidad -->
+	<!-- crea el objeto encargado de la transacción -->
+	<bean id="txManager"
+		class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="factory"></property>
+	</bean>
+	<!-- habilita la transaccionalidad mediante anotaciones -->
+	<tx:annotation-driven transaction-manager="txManager"/>			
+	
+	<!-- configuracion de spring data jpa -->
+	<jpa:repositories base-package="repository" entity-manager-factory-ref="factory" transaction-manager-ref="txManager"/>
+	
+</beans>
