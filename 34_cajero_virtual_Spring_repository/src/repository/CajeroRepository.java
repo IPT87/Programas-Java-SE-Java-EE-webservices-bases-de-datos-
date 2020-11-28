@@ -12,16 +12,14 @@ public interface CajeroRepository {
 	
 	List<Cuenta> recuperarCuentas(int dni);
 	
-	boolean verificarCliente(int numeroCuenta);
+	Cuenta verificarCliente(int numeroCuenta);
 	
-	void ingresar(double cantidad, int numeroCuenta);
+	void ingresar(Cuenta cuenta, Movimiento movimiento);
 	
-	boolean sacar(double cantidad, int numeroCuenta);
+	void sacar(Cuenta cuenta, Movimiento movimiento);
 	
 	List<Movimiento> movimientos(int numeroCuenta);
 	
 	double saldo(int numeroCuenta);
-	
-	boolean transferencia(int numCuentaOrigen, int numCuentaDestino, double cantidad);
 	
 }

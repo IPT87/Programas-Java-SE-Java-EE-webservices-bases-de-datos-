@@ -1,5 +1,7 @@
 package service;
 
+import java.time.Instant;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,17 +22,34 @@ public class CuentasServiceImpl implements CuentasService {
 
 	@Override
 	public boolean verificarCuenta(int numeroCuenta) {
-		return repository.verificarCliente(numeroCuenta);
+		if (repository.verificarCliente(numeroCuenta) != null) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	@Override
 	public void ingresar(double cantidad, int numeroCuenta) {
-		repository.ingresar(cantidad, numeroCuenta);
+		Cuenta cuenta = repository.verificarCliente(numeroCuenta);
+		Movimiento movimiento = new Movimiento(cantidad, Date.from(Instant.now()), "Ingreso", cuenta);
+		cuenta.getMovimientos().add(movimiento);
+		cuenta.setSaldo(cantidad + saldo(numeroCuenta));
+		repository.ingresar(cuenta, movimiento);
 	}
 
 	@Override
 	public boolean retirar(double cantidad, int numeroCuenta) {
-		return repository.sacar(cantidad, numeroCuenta);
+		if (saldo(numeroCuenta) - cantidad < 0) {
+			return false;
+		} else {
+			Cuenta cuenta = repository.verificarCliente(numeroCuenta);
+			Movimiento movimiento = new Movimiento(cantidad, Date.from(Instant.now()), "Extraccion", cuenta);
+			cuenta.getMovimientos().add(movimiento);
+			cuenta.setSaldo(saldo(numeroCuenta) - cantidad);
+			repository.sacar(cuenta, movimiento);
+			return true;
+		}
 	}
 
 	@Override
@@ -43,9 +62,14 @@ public class CuentasServiceImpl implements CuentasService {
 		return repository.saldo(numeroCuenta);
 	}
 
-	@Override
 	public boolean transferencia(int numCuentaOrigen, int numCuentaDestino, double cantidad) {
-		return repository.transferencia(numCuentaOrigen, numCuentaDestino, cantidad);
+		if (saldo(numCuentaOrigen) - cantidad > 0 && repository.verificarCliente(numCuentaDestino) != null) {
+			ingresar(cantidad, numCuentaDestino);
+			retirar(cantidad, numCuentaOrigen);
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 }

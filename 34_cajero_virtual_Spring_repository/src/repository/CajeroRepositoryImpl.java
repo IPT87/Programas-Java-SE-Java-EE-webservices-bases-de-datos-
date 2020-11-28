@@ -20,38 +20,22 @@ public class CajeroRepositoryImpl implements CajeroRepository {
 	EntityManager em;
 
 	@Override
-	public boolean verificarCliente(int numeroCuenta) {
-		if (em.find(Cuenta.class, numeroCuenta) != null) {
-			return true;
-		}
-		return false;
+	public Cuenta verificarCliente(int numeroCuenta) {
+		return em.find(Cuenta.class, numeroCuenta);
 	}
 
 	@Transactional
 	@Override
-	public void ingresar(double cantidad, int numeroCuenta) {
-		Cuenta cuenta = em.find(Cuenta.class, numeroCuenta);
-		Movimiento movimiento = new Movimiento(cantidad, Date.from(Instant.now()), "Ingreso", cuenta);
-		cuenta.getMovimientos().add(movimiento);
-		cuenta.setSaldo(cantidad + saldo(numeroCuenta));
+	public void ingresar(Cuenta cuenta, Movimiento movimiento) {
 		em.merge(cuenta);
 		em.persist(movimiento);
 	}
 
 	@Transactional
 	@Override
-	public boolean sacar(double cantidad, int numeroCuenta) {
-		if (saldo(numeroCuenta) - cantidad < 0) {
-			return false;
-		} else {
-			Cuenta cuenta = em.find(Cuenta.class, numeroCuenta);
-			Movimiento movimiento = new Movimiento(cantidad, Date.from(Instant.now()), "Extraccion", cuenta);
-			cuenta.getMovimientos().add(movimiento);
-			cuenta.setSaldo(saldo(numeroCuenta) - cantidad);
-			em.merge(cuenta);
-			em.persist(movimiento);
-			return true;
-		}
+	public void sacar(Cuenta cuenta, Movimiento movimiento) {
+		em.merge(cuenta);
+		em.persist(movimiento);
 	}
 
 	@Override
@@ -68,18 +52,6 @@ public class CajeroRepositoryImpl implements CajeroRepository {
 		TypedQuery<Double> query = em.createQuery(jpql, Double.class);
 		query.setParameter(1, numeroCuenta);
 		return query.getSingleResult();
-	}
-
-	@Transactional
-	@Override
-	public boolean transferencia(int numCuentaOrigen, int numCuentaDestino, double cantidad) {
-		if (saldo(numCuentaOrigen) - cantidad > 0 && verificarCliente(numCuentaDestino)) {
-			ingresar(cantidad, numCuentaDestino);
-			sacar(cantidad, numCuentaOrigen);
-			return true;
-		} else {
-			return false;
-		}
 	}
 
 	@Override
