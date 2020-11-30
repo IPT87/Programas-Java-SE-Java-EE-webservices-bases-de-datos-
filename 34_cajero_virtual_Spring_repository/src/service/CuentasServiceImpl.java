@@ -34,7 +34,7 @@ public class CuentasServiceImpl implements CuentasService {
 		Cuenta cuenta = repository.verificarCliente(numeroCuenta);
 		Movimiento movimiento = new Movimiento(cantidad, Date.from(Instant.now()), "Ingreso", cuenta);
 		cuenta.getMovimientos().add(movimiento);
-		cuenta.setSaldo(cantidad + saldo(numeroCuenta));
+		cuenta.setSaldo(cuenta.getSaldo() + cantidad);
 		repository.ingresar(cuenta, movimiento);
 	}
 
@@ -46,7 +46,7 @@ public class CuentasServiceImpl implements CuentasService {
 			Cuenta cuenta = repository.verificarCliente(numeroCuenta);
 			Movimiento movimiento = new Movimiento(cantidad, Date.from(Instant.now()), "Extraccion", cuenta);
 			cuenta.getMovimientos().add(movimiento);
-			cuenta.setSaldo(saldo(numeroCuenta) - cantidad);
+			cuenta.setSaldo(cuenta.getSaldo() - cantidad);
 			repository.sacar(cuenta, movimiento);
 			return true;
 		}
