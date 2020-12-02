@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"
-    import="java.util.List, model.Curso"%>
+    import="java.util.List,model.Curso"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,7 +13,9 @@ td {
 <title>Insert title here</title>
 </head>
 <body>
-	<%List<Curso> cursos = (List<Curso>)request.getAttribute("cursosPorAlumno"); %>
+	<%
+		List<Curso> cursos = (List<Curso>)request.getAttribute("cursosPorAlumno");
+	%>
 	
 	<%if (cursos.size() == 0) { %>
 		No hay resultados.

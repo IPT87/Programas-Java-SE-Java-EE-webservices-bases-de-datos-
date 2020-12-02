@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"
-    import="java.util.List, model.Curso"%>
+    import="java.util.List,model.Curso"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,8 +11,10 @@
 	<form action="FrontController?option=toInicio" method="post" >	
 		Seleccione curso<br/>
 		<select name="curso">
-			<%List<Curso> cursos = (List<Curso>)request.getAttribute("cursos");
-			for(Curso curso : cursos){%>
+			<%
+				List<Curso> cursos = (List<Curso>)request.getAttribute("cursos");
+				for(Curso curso : cursos){
+			%>
 			<option value="<%=curso.getNombre() %>"><%=curso.getNombre() %></option>
 			<%} %>
 		</select>

@@ -9,10 +9,14 @@
 <body>
 	<center>
 		<h1>Cursos</h1>
-		<%List<Curso> cursos=(List<Curso>)request.getAttribute("cursosalumno"); %>
+		<%
+			List<Curso> cursos=(List<Curso>)request.getAttribute("cursosalumno");
+		%>
 		<table border="1">
 			<tr><th>Curso</th><th>Duracion</th></tr>
-			<%for(Curso curso:cursos){ %>
+			<%
+				for(Curso curso:cursos){
+			%>
 				<tr>
 					<td><%=curso.getNombre() %></td><td><%=curso.getDuracion() %></td>
 				</tr>

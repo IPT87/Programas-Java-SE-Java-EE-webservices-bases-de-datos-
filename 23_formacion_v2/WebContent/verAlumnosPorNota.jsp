@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"
-    import="java.util.List, model.Alumno"%>
+    import="java.util.List,model.Alumno"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,7 +8,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<%List<Alumno> alumnos = (List<Alumno>) request.getAttribute("alumnosNota"); %>
+	<%
+		List<Alumno> alumnos = (List<Alumno>) request.getAttribute("alumnosNota");
+	%>
 	
 	<%if(alumnos == null) { %>
 		<center>

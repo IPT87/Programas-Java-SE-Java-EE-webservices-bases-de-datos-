@@ -9,10 +9,14 @@
 <body>
 	<center>
 		<h1>Alumnos</h1>
-		<%List<Alumno> alumnos=(List<Alumno>)request.getAttribute("alumnoscurso"); %>
+		<%
+			List<Alumno> alumnos=(List<Alumno>)request.getAttribute("alumnoscurso");
+		%>
 		<table border="1">
 			<tr><th>Nombre</th><th>Usuario</th></tr>
-			<%for(Alumno alumno:alumnos){ %>
+			<%
+				for(Alumno alumno:alumnos){
+			%>
 				<tr>
 					<td><%=alumno.getNombre() %></td><td><%=alumno.getUsuario() %></td>
 				</tr>

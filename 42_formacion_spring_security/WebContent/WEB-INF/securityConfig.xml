@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-5.3.xsd">
+
+	<bean id="data" name="dataUsers"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="url"
+			value="jdbc:mysql://localhost:3306/spring_security?serverTimezone=UTC">
+		</property>
+		<property name="driverClassName"
+			value="com.mysql.cj.jdbc.Driver">
+		</property>
+		<property name="username" value="root"></property>
+		<property name="password" value="root"></property>
+	</bean>
+
+	<!-- politicas de acceso a recursos y modo de autenticacion de usuario -->
+	<security:http use-expressions="false">
+		<!-- mecanismo de autenticación -->
+		<security:http-basic/>
+		<!--  <security:form-login login-page="/milogin.jsp" authentication-failure-url="/noautenticado.jsp"/>-->
+		<!-- protección de recursos -->
+		<security:intercept-url pattern="/menu.jsp"   access="ROLE_USER, ROLE_ADMIN"/>
+		<security:intercept-url pattern="/doSeleccionAlumnoMatricular" access="ROLE_ADMIN"/>
+		
+		<security:csrf disabled="true"/>
+		
+	</security:http>
+	
+	<!-- definicion del repositorio de usuarios -->
+	<security:authentication-manager>
+		<security:authentication-provider>
+			<!--  <security:password-encoder hash="sha"/>-->
+			<!-- opción 1. Usuarios en el propio archivo -->
+			<!-- <security:user-service>
+				<security:user name="user1" password="{bcrypt}$2a$10$AcAn4Q0FEwrzRsIavL8oleD5W2zh7g2H94VCrdCeNti5kO43cFkOe" authorities="ROLE_USER"/>
+				<security:user name="user2" password="{bcrypt}$2a$05$oUUns3rPzZqZYW/cFFq5IOAKp7XbilzpRUI/S.gf6phORpGpSUDea" authorities="ROLE_USER,ROLE_ADMIN"/>
+			</security:user-service> -->
+			
+			<!-- opción 2. Usuarios en archivo de tipo properties 
+			<security:user-service properties="/WEB-INF/usuarios.properties"/>
+			El formato del archivo sería:
+			user1=pw1,ROLE_USER,enabled
+			user2=pw2, ROLE_USER,ROLE_ADMIN, enabled
+			-->
+			<!-- opción 3. Usuarios en una base de datos -->
+			<security:jdbc-user-service data-source-ref="dataUsers"
+										users-by-username-query="SELECT user, pwd, enabled FROM users WHERE user = ?"
+										authorities-by-username-query="SELECT user, rol FROM roles WHERE user = ?"/>
+			
+			<!-- opción 4. Usuarios en LDAP 
+			<security:ldap-user-service server-ref="sldap"/>
+			-->
+		</security:authentication-provider>
+	</security:authentication-manager>
+	<!-- opción 4. Usuarios en LDAP 
+	<security:ldap-server id="sldap" url="ldap://localhost:339" manager-dn="admin" manager-password="admin"/>
+	-->
+
+</beans>

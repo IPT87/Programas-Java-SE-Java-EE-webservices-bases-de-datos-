@@ -8,7 +8,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<%Alumno alumno = (Alumno)request.getAttribute("alumnoPorUsuario"); %>
+	<%
+		Alumno alumno = (Alumno)request.getAttribute("alumnoPorUsuario");
+	%>
 	
 	<%if (alumno == null) { %>
 		No hay resultados.

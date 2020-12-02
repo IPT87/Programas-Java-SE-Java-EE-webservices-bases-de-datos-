@@ -10,10 +10,14 @@
 	<center>
 		<h1>Cursos</h1>
 		<form action="FrontController?option=doMatricular" method="Post">
-		<%List<Curso> cursos=(List<Curso>)request.getAttribute("cursosmatricular"); %>
+		<%
+			List<Curso> cursos=(List<Curso>)request.getAttribute("cursosmatricular");
+		%>
 		Curso: <select name="idCurso">
 			
-			<%for(Curso curso:cursos){ %>
+			<%
+							for(Curso curso:cursos){
+						%>
 				<option value="<%=curso.getIdCurso() %>">
 					<%=curso.getNombre() %>
 				</option>

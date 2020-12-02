@@ -10,10 +10,14 @@
 	<center>
 		<h1>Alumnos</h1>
 		<form action="FrontController?option=doSeleccionCursoMatricular" method="Post">
-		<%List<Alumno> alumnos=(List<Alumno>)request.getAttribute("alumnos"); %>
+		<%
+			List<Alumno> alumnos=(List<Alumno>)request.getAttribute("alumnos");
+		%>
 		Alumno: <select name="usuario">
 			
-			<%for(Alumno alumno:alumnos){ %>
+			<%
+							for(Alumno alumno:alumnos){
+						%>
 				<option value="<%=alumno.getUsuario() %>">
 					<%=alumno.getNombre() %>
 				</option>

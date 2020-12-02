@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"
-    import="java.util.List, model.Candidato,service.CandidatosService"%>
+    import="java.util.List,model.Candidato,service.CandidatosService"%>
 <!DOCTYPE html>
 <html>
 <head>
