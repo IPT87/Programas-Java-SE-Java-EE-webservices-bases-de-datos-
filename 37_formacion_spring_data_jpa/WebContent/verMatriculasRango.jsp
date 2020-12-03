@@ -30,12 +30,12 @@
 				</tr>
 			</thead>
 			<c:forEach var="curso" items="${matriculas }">
-				<c:set var="alumnos" value="${requestScope.alumnos }"/>
+				<c:set var="alumnos" value="${curso.alumnos }"/>
 					<c:forEach var="alumno" items="${alumnos }">
 						<tr>
 							<td>${alumno.nombre}</td>
 							<td>${curso.nombre}</td>
-							<td>${curso.getFechaInicio}</td>
+							<td>${curso.fechaInicio}</td>
 						</tr>
 					</c:forEach>
 			</c:forEach>
