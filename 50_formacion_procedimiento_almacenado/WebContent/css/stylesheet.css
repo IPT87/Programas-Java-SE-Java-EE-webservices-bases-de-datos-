@@ -1,0 +1,341 @@
+﻿@charset "utf-8";
+
+body {
+	background-color: #e4d2e4;
+	font-family: Verdana, Geneva, Tahoma, sans-serif;
+	margin-left: 30px;
+	margin-top: 15px;
+	margin-bottom: 80px;
+}
+
+button {
+	font-family: Verdana, Geneva, Tahoma, sans-serif;
+	font-size: medium;
+	border: none;
+	background-color: #a2009d;
+	color:#ffffff;
+	padding: 12px 25px;	
+	opacity: 0.6;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	cursor: pointer;
+	border-radius: 0.8em;
+  }
+  button:hover {opacity: 1}
+
+  input,select {
+	font-family: Verdana, Geneva, Tahoma, sans-serif;
+	font-size: medium;
+	border: medium;
+	padding: 10px 20px;
+	margin: 5px;
+	text-align: left;
+	display: inline-block;
+  }
+
+img {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+h1 {
+	text-align: center;
+	background-color: #d1e9e7;
+	font-style: italic;
+	margin-top: 30px;
+	margin-bottom: 30px;
+	color: #a2009d;
+	opacity: 0.6;
+	border-radius: 0.7em;
+}
+
+h2 {
+	text-align: left;	
+	font-style: oblique;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	color: #a2009d;
+	opacity: 0.5;
+}
+
+ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	font-size: large;
+	overflow: hidden;
+	background-color: #a2009d;
+	opacity:0.6;
+  }
+
+  li {
+	float: left;
+  }
+  
+  li a {
+	display: block;
+	color: white;
+	text-align: center;
+	padding: 12px 25px;
+	text-decoration: none;
+  }
+
+  li a:hover:not(.active) {
+	background-color: #740070;
+  }
+
+  .active {
+	background-color: #740070;
+	opacity:1;
+  }
+
+#right{
+	float: right;
+	padding: 8px 15px;	
+	font-size: small;
+	opacity:1;
+}
+
+#aviso {
+	text-align: center;
+	font-size: large;
+	border-style: dotted;
+	background-color: #71cbff;
+	color:#060606;
+	padding: 2%;	
+	margin-top: 6px;
+	margin-bottom: 6px;
+	margin-left: 10%;
+	margin-right: 10%;
+}
+
+#aviso_lite {
+	text-align: center;
+	font-size: large;
+	border-style: dotted;
+	padding: 2%;	
+	margin-top: 6px;
+	margin-bottom: 6px;
+	margin-left: 10%;
+	margin-right: 10%;
+}
+
+#salida {
+	width: 500px;
+	text-align: center;
+	font-family: monospace;
+	font-size: medium;
+	border-style: dotted;
+	line-height: 30cm;
+	margin: auto;
+	padding: 2em;
+}
+
+p {
+	text-align: justify;
+	font-size: medium;
+	font-style: normal;
+}
+
+#activo {
+	text-align: justify;
+	font-size: large;
+	font-style: italic;
+}
+
+.column {
+	float: left;
+	width: 50%;
+  }
+  
+ /* Clear floats after the columns */
+.row:after {
+	content: "";
+	display: table;
+	clear: both;
+ }
+
+ div {
+	display: flex;
+	justify-content: left; /* align horizontal */
+	align-items: center; /* align vertical */
+ }
+
+.div-table {
+	display: flex;
+	justify-content: left;
+	border: 3px solid #a464a4;
+	border-spacing: 100px; /* cellspacing:poor IE support for  this */
+}
+
+.div-table-row {
+	display: flex;
+	background-color: #f5d7e7;
+	height: 50px;
+	clear: both;
+	justify-content: left;
+}
+
+.div-table-col {
+	float: left; /* fix for  buggy browsers */
+	display: table-column;
+	border: 1.5px solid #a464a4;
+	width: 200px;
+	height: 45px;
+	font-size: large;
+	padding-top: 5px;
+	word-wrap: break-word;
+	vertical-align: middle;
+}
+
+.div-table-title-col {
+	float: left; /* fix for  buggy browsers */
+	display: table-column;
+	background-color: #a2009d;
+	opacity: 0.6;
+	color:#ffffff;
+	border: 1.5px solid #a464a4;
+	width: 200px;
+	height: 45px;
+	font-size: large;
+	padding-top: 5px;
+	word-wrap: break-word;
+	vertical-align: middle;
+}
+
+.div-table-col-large {
+	float: left; /* fix for  buggy browsers */
+	display: table-column;
+	border: 1.5px solid #a464a4;
+	width: 300px;
+	height: 45px;
+	font-size: large;
+	padding-top: 5px;
+	word-wrap: break-word;
+	vertical-align: middle;
+}
+
+.div-table-title-col-large {
+	float: left; /* fix for  buggy browsers */
+	display: table-column;
+	background-color: #a2009d;
+	opacity: 0.6;
+	color:#ffffff;
+	border: 1.5px solid #a464a4;
+	width: 300px;
+	height: 45px;
+	font-size: large;
+	padding-top: 5px;
+	word-wrap: break-word;
+	vertical-align: middle;
+}
+
+.div-table-col-small {
+	float: left; /* fix for  buggy browsers */
+	display: table-column;
+	border: 1.5px solid #a464a4;
+	width: 160px;
+	height: 45px;
+	font-size: large;
+	padding-top: 5px;
+	word-wrap: break-word;
+	vertical-align: middle;
+}
+
+.div-table-title-col-small {
+	float: left; /* fix for  buggy browsers */
+	display: table-column;
+	background-color: #a2009d;
+	opacity: 0.6;
+	color:#ffffff;
+	border: 1.5px solid #a464a4;
+	width: 160px;
+	height: 45px;
+	font-size: large;
+	padding-top: 5px;
+	word-wrap: break-word;
+	vertical-align: middle;
+}
+
+.div-table-col-small2 {
+	float: left; /* fix for  buggy browsers */
+	display: table-column;
+	border: 1.5px solid #a464a4;
+	width: 140px;
+	height: 45px;
+	font-size: large;
+	padding-top: 5px;
+	word-wrap: break-word;
+	vertical-align: middle;
+}
+
+.div-table-title-col-small2 {
+	float: left; /* fix for  buggy browsers */
+	display: table-column;
+	background-color: #a2009d;
+	opacity: 0.6;
+	color:#ffffff;
+	border: 1.5px solid #a464a4;
+	width: 140px;
+	height: 45px;
+	font-size: large;
+	padding-top: 5px;
+	word-wrap: break-word;
+	vertical-align: middle;
+}
+
+.div-table-col-vsmall {
+	float: left; /* fix for  buggy browsers */
+	display: table-column;
+	border: 1.5px solid #a464a4;
+	width: 100px;
+	height: 45px;
+	font-size: large;
+	padding-top: 5px;
+	word-wrap: break-word;
+	vertical-align: middle;
+}
+
+.div-table-title-col-vsmall {
+	float: left; /* fix for  buggy browsers */
+	display: table-column;
+	background-color: #a2009d;
+	opacity: 0.6;
+	color:#ffffff;
+	border: 1.5px solid #a464a4;
+	width: 100px;
+	height: 45px;
+	font-size: large;
+	padding-top: 5px;
+	word-wrap: break-word;
+	vertical-align: middle;
+}
+
+.div-table-col-vsmall2 {
+	float: left; /* fix for  buggy browsers */
+	display: table-column;	
+	border: 1.5px solid #a464a4;
+	width: 80px;
+	height: 45px;
+	font-size: large;
+	padding-top: 5px;
+	word-wrap: break-word;
+	vertical-align: middle;
+}
+
+.div-table-title-col-vsmall2 {
+	float: left; /* fix for  buggy browsers */
+	display: table-column;	
+	background-color: #a2009d;
+	opacity: 0.6;
+	color:#ffffff;
+	border: 1.5px solid #a464a4;
+	width: 80px;
+	height: 45px;
+	font-size: large;
+	padding-top: 5px;
+	word-wrap: break-word;
+	vertical-align: middle;
+}
