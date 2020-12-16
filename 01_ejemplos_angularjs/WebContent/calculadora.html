@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Calculadora</title>
+
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+
+</head>
+<body>
+	<div ng-app="calculadoraApp" ng-controller="calculadoraController" >
+		Numero 1  <input type="number" ng-model="numero1"/>
+		<br/><br/>
+		Numero 2  <input type="number" ng-model="numero2"/>
+		<br/><br/>
+		<input type="button" value="Sumar" ng-click="sumar()" /> 
+		<input type="button" value="Multiplicar" ng-click="multiplicar()" />
+		<br/><br/>
+		<b>El resultado es: {{resultado}}</b>	
+	</div>
+	
+	<script type="text/javascript">
+		var app = angular.module("calculadoraApp", []);
+		app.controller("calculadoraController", function ($scope) {
+			$scope.sumar = function() {
+				$scope.resultado = parseInt($scope.numero1) + parseInt($scope.numero2);
+			}
+			
+			$scope.multiplicar = function() {
+				$scope.resultado = parseInt($scope.numero1) * parseInt($scope.numero2);
+			}
+		});
+	</script>
+</body>
+</html>

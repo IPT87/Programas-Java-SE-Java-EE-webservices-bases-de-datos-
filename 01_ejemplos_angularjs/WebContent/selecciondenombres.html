@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Seleccion de nombres</title>
+
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+
+</head>
+<body>
+	<div ng-app="seleccionApp" ng-controller="seleccionController" >
+		Seleccione nombre: <select ng-model="seleccion">
+			<option ng-repeat="p in listado" value="{{p.edad}}" >{{p.nombre}}</option>
+		</select>
+		<br/><br/>
+		La edad de la persona seleccionada es: {{seleccion}} años.
+		<br/><br/>
+		<input type="button" value="Mostrar" ng-click="imprimir()"/>
+	</div>
+	
+	<script type="text/javascript">
+		var app = angular.module("seleccionApp", []);
+		app.controller("seleccionController", function ($scope) {
+			$scope.seleccion = 25;
+			$scope.listado = [{"nombre" : "persona1", "edad" : 25},
+							{"nombre" : "persona2", "edad" : 37},
+							{"nombre" : "persona3", "edad" : 19}];
+			$scope.imprimir = function() {
+				alert($scope.seleccion);
+			}
+		});
+	</script>
+</body>
+</html>
