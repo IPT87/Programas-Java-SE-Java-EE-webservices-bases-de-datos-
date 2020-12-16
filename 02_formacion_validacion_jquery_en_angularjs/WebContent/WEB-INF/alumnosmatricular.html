@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+<link rel="stylesheet" href="./css/stylesheet.css">
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	<center>
+		<h1>Alumnos</h1>
+		<form action="doSeleccionCursoMatricular" method="Post">
+		Alumno: <select name="usuario">
+					<option th:each="alumno: ${alumnos}" th:value="${alumno.usuario}" th:text="${alumno.nombre}"></option>
+				</select>
+		<br/>
+		<input type="submit" value="Siguiente"/>	
+		</form>
+		<br/><br/>
+	</center>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+<link rel="stylesheet" href="./css/stylesheet.css">
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	<form action="doConsultarMatriculas" method="POST">
+		Fecha inicio
+		<input type="date" name="fechaInicio"/>
+		&#160;&#160;Fecha fin
+		<input type="date" name="fechaFin"/>
+		<br/><br/>
+		<input type="submit" value="Ver matriculas"/>
+		<br/><br/>
+	</form>
+	
+	<div th:if="${matriculasRango}">
+		<table border="5" bgcolor="lightblue" bordercolor="green" cellpading="5" cellspacing="5">
+			<thead>
+				<tr>
+					<td>Alumno</td>
+					<td>Curso</td>
+					<td>Fecha</td>
+				</tr>
+			</thead>
+			<tbody th:each="curso: ${matriculasRango}">
+						<tr th:each="alumno: ${curso.alumnos}">
+							<td th:text="${alumno.nombre}"></td>
+							<td th:text="${curso.nombre}"></td>
+							<td th:text="${curso.fechaInicio}"></td>
+						</tr>
+			</tbody>
+		</table>
+		</div>
+	<p align="right"><a href="menu">Volver</a></p>
+</body>
+</html>

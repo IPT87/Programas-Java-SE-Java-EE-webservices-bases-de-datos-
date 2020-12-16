@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+<link rel="stylesheet" href="./css/stylesheet.css">
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	<center>
+		<h1>Cursos</h1>
+		<form action="doMatricular" method="Post">
+		Curso: <select name="idCurso">
+				<option th:each="curso: ${cursosmatricular}" th:value="${curso.idCurso}" th:text="${curso.nombre}"></option>
+			</select>
+		<br/>
+		<input type="submit" value="Matricular"/>	
+		</form>
+		<br/><br/>
+	</center>
+</body>
+</html>
