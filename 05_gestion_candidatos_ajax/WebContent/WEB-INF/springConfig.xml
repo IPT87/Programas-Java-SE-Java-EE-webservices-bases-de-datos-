@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-4.3.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+	<!-- 1. Habilite configuración mediante anotaciones -->
+	<context:annotation-config/>
+	<!-- 2. Escanee los paquetes en los que se encuentran las clases que debe instanciar -->
+	<context:component-scan base-package="service"/>
+	<!-- datasources propios de Spring -->
+	<bean id="data" 
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="url"
+			value="jdbc:mysql://localhost:3307/empresa?serverTimezone=UTC">
+		</property>
+		<property name="driverClassName"
+			value="com.mysql.cj.jdbc.Driver">
+		</property>
+		<property name="username" value="root"></property>
+		<property name="password" value="root"></property>
+	</bean>
+	<bean id="data2" 
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="url"
+			value="jdbc:mysql://localhost:3307/formacion?serverTimezone=UTC">
+		</property>
+		<property name="driverClassName"
+			value="com.mysql.cj.jdbc.Driver">
+		</property>
+		<property name="username" value="root"></property>
+		<property name="password" value="root"></property>
+	</bean>
+	<!-- datasource del servidor -->
+	<jee:jndi-lookup jndi-name="refempresa" id="data3"/>
+	
+	<!-- configuración integración Spring-JPA-Hibernate -->
+	<!-- creación adaptador JPA-Hibernate -->
+	<bean id="adapter"
+		class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+		<property name="databasePlatform"
+			value="org.hibernate.dialect.MySQLDialect">
+		</property>
+	</bean>
+	
+	<!-- configuración JPA -->
+	<bean id="factory"
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="persistenceUnitName" value="empresaPU"></property>
+		<property name="dataSource" ref="data3"></property>
+		<property name="jpaVendorAdapter" ref="adapter"></property>
+		<property name="packagesToScan" value="model"></property>
+	</bean>	
+	<!-- transaccionalidad -->
+	<!-- crea el objeto encargado de la transacción -->
+	<bean id="txManager"
+		class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="factory"></property>
+	</bean>
+	<!-- habilita la transaccionalidad mediante anotaciones -->
+	<tx:annotation-driven transaction-manager="txManager"/>	
+	
+	
+</beans>
