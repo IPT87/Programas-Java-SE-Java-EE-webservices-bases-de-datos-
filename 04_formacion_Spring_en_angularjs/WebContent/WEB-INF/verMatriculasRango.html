@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+<link rel="stylesheet" href="./css/stylesheet.css">
+<meta charset="ISO-8859-1">
+<title>Ver matriculas</title>
+
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+
+</head>
+<body>
+	<span ng-app="verMatriculasApp" ng-controller="verMatriculasController">
+		Fecha inicio
+		<input type="date" name="fechaInicio" id="fechaInicio" ng-model="fechaInicio"/>
+		&#160;&#160;Fecha fin
+		<input type="date" name="fechaFin" id="fechaFin" ng-model="fechaFin"/>
+		<br/><br/>
+		
+			<input type="button" value="Ver matriculas" ng-click="buscar();"/>
+			<br/><br/>
+	
+		<table border="1" ng-show="tabla">
+			<tr><th>Alumno</th><th>Curso</th><th>Fecha</th></tr>
+				<tbody ng-repeat="m in matriculas">
+					<tr ng-repeat="a in m.alumnos">
+						<td>{{a.nombre}}</td><td>{{m.nombre}}</td><td>{{m.fechaInicio}}</td>
+					</tr>
+				</tbody>
+		</table>
+	
+	</span>
+		
+	<p align="right"><a href="menu">Volver</a></p>
+	
+	<script>
+		var app = angular.module("verMatriculasApp", []);
+		app.controller("verMatriculasController", function($scope, $http) {
+			$scope.tabla = false;
+			var url = "doConsultarMatriculas";
+			$scope.buscar = function () {
+				$http.get(url, {params: {fechaInicio:$scope.fechaInicio, fechaFin : $scope.fechaFin}}).then(function(res) {
+					$scope.matriculas = res.data;
+					$scope.tabla = true;
+				});
+			};
+			
+		});
+	</script>
+</body>
+</html>

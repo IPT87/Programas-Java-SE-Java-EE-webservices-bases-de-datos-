@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+<link rel="stylesheet" href="./css/stylesheet.css">
+<meta charset="ISO-8859-1">
+<title>Seleccione curso</title>
+
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+
+</head>
+<body>
+	
+		<span ng-app="buscarAlumnosApp" ng-controller="buscarAlumnosController" >
+			<h1>Cursos</h1>
+			Curso: <select name="idCurso" ng-model="idCurso">
+					<option th:each="curso: ${cursos}" th:value="${curso.idCurso}" th:text="${curso.nombre}" ></option>
+				</select>
+			<br/>
+			<input type="button" value="Buscar alumnos" ng-click="buscar();" />
+			<br/><br/>
+			
+			<span ng-show="tabla">
+				<h1>Alumnos</h1>
+				<br/>
+				<table border="1">
+					<tr><th>Nombre</th><th>Usuario</th></tr>
+						<tr ng-repeat="a in alumnos">
+							<td>{{a.nombre}}</td><td>{{a.usuario}}</td>
+						</tr>
+				</table>
+			</span>
+		</span>
+		<br/><br/>
+		
+		<a href="menu">Volver</a>
+
+	<script>
+		var app = angular.module("buscarAlumnosApp", []);
+		app.controller("buscarAlumnosController", function($scope, $http) {
+			$scope.tabla = false;
+			var url = "doAlumnosCurso";
+			$scope.buscar = function () {
+				$http.get(url, {params: {idCurso:$scope.idCurso}}).then(function(res) {
+					$scope.alumnos = res.data;
+					$scope.tabla = true;
+				});
+			};
+			
+		});
+	</script>
+</body>
+</html>

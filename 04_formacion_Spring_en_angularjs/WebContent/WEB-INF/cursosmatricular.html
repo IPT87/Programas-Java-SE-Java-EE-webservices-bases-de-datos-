@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+<link rel="stylesheet" href="./css/stylesheet.css">
+<meta charset="ISO-8859-1">
+<title>Matricular alumnos</title>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+
+	function verAlumnos() {
+		var url = "doSeleccionAlumnoMatricular";
+		$.get(url, procesarRespuestaAlumnos);
+	}
+
+	function verCursos() {
+		var url = "doSeleccionCursoMatricular?usuario=" + $("#usuario").val();
+		$.get(url, procesarRespuestaCursos);
+	}
+	
+	function procesarRespuestaAlumnos(dataAlumnos) {
+		var html = "<h1>" + "Alumnos" + "</h1>" +
+					"Alumno:<select name='usuario' id='usuario'>";
+		$.each(dataAlumnos, function(index, alumnos) {
+			html += "<option value=" + alumnos.usuario + ">" + alumnos.nombre + "</option><br/>";
+		});
+		
+		html += "</select>";
+		html += "<input type='button' value='Siguiente' onclick='verCursos();'/><br/>";
+		
+		$("#resultadoAlumnos").html(html);
+	}
+	
+	function procesarRespuestaCursos(dataCursos) {
+		var html = "<h1>Cursos</h1><br/>" +
+					"Curso:<select name='idCurso' id='idCurso'>";
+		$.each(dataCursos, function(index, cursos) {
+			html += "<option value=" + cursos.idCurso + ">" + cursos.nombre + "</option><br/>";
+		});
+		
+		html += "</select>";
+		html += "<input type='submit' value='Matricular'/>";
+		
+		$("#resultadoCursos").html(html);
+	}
+	
+</script>
+</head>
+<body onload="verAlumnos();">
+	
+	<div id="resultadoAlumnos" >
+		
+	</div><br/>
+		
+	<form action="doMatricular" method="POST">
+		<div id="resultadoCursos">
+			
+		</div>
+		
+	</form>
+		
+</body>
+</html>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+<link rel="stylesheet" href="./css/stylesheet.css">
+<meta charset="ISO-8859-1">
+<title>Alumnos</title>
+</head>
+<body>
+	<center>
+		<h1>Alumnos</h1>
+		<table border="1">
+			<tr><th>Nombre</th><th>Usuario</th></tr>
+				<tr th:each="alumno: ${alumnoscurso}">
+					<td th:text="${alumno.nombre}"></td><td th:text="${alumno.usuario}"></td>
+				</tr>
+		</table>
+		<br/><br/>
+		<a href="menu">Volver</a>
+	</center>
+</body>
+</html>

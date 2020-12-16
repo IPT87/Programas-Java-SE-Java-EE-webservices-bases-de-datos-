@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+table, th, td {
+	border: 1px solid GRAY;
+	border-collapse: collapse;
+}
+a{
+	color:LIGHTSLATEGRAY;
+}
+h1{
+	color:DARKSALMON;
+}
+legend{
+	color:INDIANRED;
+}
+</style>
+<meta charset="UTF-8">
+<title>Registro de Alumnos</title>
+
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+
+</head>
+<body>
+	<fieldset>
+	<legend>Datos personales</legend>
+		<div ng-app="altaAlumnoApp" ng-controller="altaAlumnoController">
+			<form action="doAltaAlumno" method="post" accept-charset=utf-8 ng-submit="comprobar($event);">
+				<label for="fusuario">Usuario</label><br>
+				<input type="text" name="usuario" required="required" ng-model="usuario"><br>
+				<label for="fpassword">Contraseña</label><br>
+				<input type="password" name="password" id="password" required="required" ng-model="password"><span ng-show="passCheck"><b>La contraseña debe ser como minimo de 6 caracteres!</b></span><br>
+				<label for="fnombre">Nombre</label><br>
+				<input type="text" name="nombre" required="required" ng-model="nombre"><br>
+				<label for="femail">Email</label><br>
+				<input type="text" name="email" id="email" required="required" ng-model="email"><span ng-show="emailCheck"><b>El email debe contener los simbolos "@" y "."!</b></span><br>
+				<label for="fedad">Edad</label><br>
+				<input type="number" name="edad" id="edad" required="required" ng-model="edad"><span ng-show="edadCheck"><b>La edad debe ser entre 18 y 99 años!</b></span><br><br>
+				<input type="submit" value="Guardar" ng-click="comprobar()">
+				<input type="reset">
+			</form>
+		</div>
+	</fieldset>
+	<p align="right"><a href="menu">Volver</a></p>
+	
+	<script type="text/javascript">
+	
+	var app = angular.module("altaAlumnoApp", []);
+	app.controller("altaAlumnoController", function ($scope) {
+		$scope.passCheck = false;
+		$scope.emailCheck = false;
+		$scope.edadCheck = false;
+		
+		$scope.comprobar = function(evento) {
+			if (!($scope.comprobarPass() && $scope.comprobarEmail() && $scope.comprobarEdad())) {
+				evento.preventDefault();
+			}
+		};
+		
+		$scope.comprobarPass = function() {
+			if ($scope.password.length < 6) {
+				$scope.passCheck = true;
+				return false;
+			}
+			$scope.passCheck = false;
+			return true;
+		};
+		
+		$scope.comprobarEmail = function() {
+			if (!$scope.email.includes("@") || !$scope.email.includes(".")) {
+				$scope.emailCheck = true;
+				return false;
+			}
+			$scope.emailCheck = false;
+			return true;
+
+		};
+		
+		$scope.comprobarEdad = function() {
+			if (parseInt($scope.edad) < 18 || parseInt($scope.edad) > 99) {
+				$scope.edadCheck = true;
+				return false;
+			}
+			$scope.edadCheck = false;
+			return true;
+
+		};
+	});
+
+</script>
+</body>
+</html>
