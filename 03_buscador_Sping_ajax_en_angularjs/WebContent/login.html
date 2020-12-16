@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Autenticacion</title>
+<script type="text/javascript">
+	function comprobarDatos() {
+		var user = document.getElementById("usuario").value;
+		var password = document.getElementById("password").value;
+		
+		if (user.length <= 2 || password.length <= 2) {
+			alert("El usuario y la contraseña deben tener al menos dos caracteres!");
+			return false;
+		}
+		return true;
+	}
+</script>
+</head>
+<body>
+	<center>
+		<h1>Página de autenticación</h1>
+		<form action="doLogin" method="post" onsubmit="return comprobarDatos();">
+			Usuario:<input type="text" id="usuario" name="usuario"/><br/><br/>
+			Contraseña:<input type="password" id="password" name="password"/><br/><br/>
+			<input type="submit" value="Entrar"/>
+		</form>
+	
+	</center>
+</body>
+</html>

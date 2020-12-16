@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Buscar</title>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+
+<!-- <script type="text/javascript">
+	function buscar() {
+		// var url = "doBuscar";
+		// $.get(url, {tema:$("#tema"}).val()}, procesarRespuesta);
+		var url = "doBuscar?tema=" + $("#tema").val();
+		$.get(url, procesarRespuesta);
+	}
+	
+	function procesarRespuesta(data) {
+		var html = "";
+		
+		$.each(data, function(index, item) {
+			html += "<a href='" + item.url + "'>" + item.titulo + "</a><br/>";
+		});
+		
+		$("#resultado").html(html);
+	}
+</script> -->
+
+</head>
+<body>
+	<b><span th:text="${session.usuario}"/></b>
+	
+	<div ng-app="buscadorApp" ng-controller="buscadorController">
+		<h1>Buscador</h1>
+
+		Introduce tema de busqueda:<input type="text" ng-model="tema"/><br/><br/>
+		<input type="button" value="Buscar" ng-click="buscar();"/>
+		<br/><br/>
+		<a ng-repeat="item in items" href="{{item.url}}">{{item.titulo}}<br/></a>
+	</div>
+
+	<script>
+		var app = angular.module("buscadorApp", []);
+		app.controller("buscadorController", function($scope, $http) {
+			var url = "doBuscar";
+			$scope.buscar = function () {
+				$http.get(url, {params: {tema:$scope.tema}}).then(function(res) {
+					$scope.items = res.data;
+				});
+			};
+		});
+	</script>
+</body>
+</html>
