@@ -28,7 +28,7 @@
 						<td>{{can.nombre}}</td>
 						<td>{{can.edad}}</td>	
 						<td>{{can.puesto}}</td>
-						<td><img alt="" height="50px" width="70px" src="{{can.foto}}"></td>
+						<td><img alt="" height="70px" width="90px" src="{{can.foto}}"></td>
 						<td>{{can.email}}</td>
 						<td><input type="button" value="Eliminar" ng-click="eliminar(can.idCandidato);"></td>
 					</tr>
