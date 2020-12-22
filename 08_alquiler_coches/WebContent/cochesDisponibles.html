@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Coches disponibles</title>
+
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+
+</head>
+<body>
+	
+	<h1><b>Vehiculos disponibles</b></h1>
+
+	<span ng-app="buscarVehiculosApp" ng-controller="buscarVehiculosController" >
+		Seleccione fecha: <input type="date" name="fechaInicio" ng-model="fechaInicio"/>&nbsp;
+		<input type="button" value="Mostrar" ng-click="buscarVehiculos();" />
+		<br/><br/>
+		
+		<span ng-show="tabla">
+				<table border="1">
+					<tr>
+						<th>Marca</th>
+						<th>Modelo</th>
+						<th>Precio/dia</th>
+						<th>Dias disponibles</th>
+					</tr>
+						<tr ng-repeat="v in vehiculos">
+							<td>{{v.marca}}</td>
+							<td>{{v.modelo}}</td>
+							<td>{{v.precioDia}}</td>
+							<td ng-if="v.diasDisponible > 0">{{v.diasDisponible}}</td>
+							<td ng-if="v.diasDisponible <= 0">&infin;</td>
+							<td><input type="button" value="reservar" ng-click="elegirVehiculo(v.marca, v.modelo, v.color, v.potencia, v.diasDisponible, v.matricula, v.precioDia);"/></td>
+						</tr>
+				</table>
+				<br/><br/>
+				<div ng-show="vehiculoElegido">
+					Marca: {{marca}}<br/>
+					Modelo: {{modelo}}<br/>
+					Color: {{color}}<br/>
+					Potencia: {{potencia}}<br/>
+					Total dias: <input type="number" name="totalDias" ng-model="diasSolicatados"/><br/>
+					Email: <input type="email" name="email" ng-model="email"/><br/><br/>
+					<input type="button" value="Reservar" ng-click="reservarVehiculo();"/>
+				</div>
+		</span>
+	</span>
+	<br/><br/>
+		
+	<a href="toMenuUsuarios">Volver</a>
+	
+	<script>
+		var app = angular.module("buscarVehiculosApp", []);
+		app.controller("buscarVehiculosController", function($scope, $http, $httpParamSerializer) {
+			$scope.tabla = false;
+			var url = "doVehiculosDisponibles";
+			$scope.buscarVehiculos = function () {
+				$http.get(url, {params: {fechaInicio:$scope.fechaInicio}}).then(function(res) {
+					$scope.vehiculos = res.data;
+					$scope.tabla = true;
+				});
+			};
+			
+			$scope.elegirVehiculo = function (marca, modelo, color, potencia, diasDisponible, matricula, precioDia) {
+				$scope.vehiculoElegido = true;
+				$scope.marca = marca;
+				$scope.modelo = modelo;
+				$scope.color = color;
+				$scope.potencia = potencia;
+				$scope.diasDisponible = diasDisponible;
+				$scope.matricula = matricula;
+				$scope.precioDia = precioDia;
+			};
+			
+			var urlReserva = "doReservarVehiculo";
+			$scope.reservarVehiculo = function () {
+				if ($scope.diasDisponible == 0) {
+					$http.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
+					$http.post(urlReserva, $httpParamSerializer({matricula : $scope.matricula, fechaInicio:$scope.fechaInicio, fechaFin : $scope.diasSolicatados, precioDia : $scope.precioDia, email : $scope.email})).then(function(res) {
+						document.location.href="confirmacion.html";
+					});
+				} else {
+					if ($scope.diasSolicatados <= $scope.diasDisponible) {
+						$http.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
+						$http.post(urlReserva, $httpParamSerializer({matricula : $scope.matricula, fechaInicio:$scope.fechaInicio, fechaFin : $scope.diasSolicatados, precioDia : $scope.precioDia, email : $scope.email})).then(function(res) {
+							document.location.href="confirmacion.html";
+						});
+					} else {
+						alert("El maximo de dias disponibles es " + $scope.diasDisponible + "!");
+					}
+				}
+				
+			};
+			
+		});
+	</script>
+</body>
+</html>

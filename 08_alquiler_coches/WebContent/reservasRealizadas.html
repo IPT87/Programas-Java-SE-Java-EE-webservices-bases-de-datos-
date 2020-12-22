@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Reservas realizadas</title>
+
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+
+<style>
+	table,tr,th,td {
+		border:1px solid blue;
+	}
+</style>
+</head>
+<body>
+	<div ng-app="reservasApp" ng-controller="reservasController">
+	
+		Fecha 1: <input type="date" ng-model="fechaInicio"/>&nbsp;
+		Fecha 2: <input type="date" ng-model="fechaFin"/>&nbsp;
+		<input type="button" value="Mostrar" ng-click="buscarReservas();"/>
+		<br/><br/>
+	
+			<table ng-show="reservas">
+				<tr>
+					<th>Marca</th>
+					<th>Modelo</th>
+					<th>Inicio</th>
+					<th>Fin</th>
+				</tr>
+				<tr ng-repeat="res in reservas">
+					<td>{{res.vehiculo.marca}}</td>
+					<td>{{res.vehiculo.modelo}}</td>	
+					<td>{{res.fechaInicio}}</td>
+					<td>{{res.fechaFin}}</td>
+				</tr>
+			</table>
+
+		<br/><br/>
+		<a href="toMenuPropietario">Volver al menu</a>
+	</div>
+	
+	<script>
+		var app = angular.module("reservasApp", []);
+		app.controller("reservasController", function($scope,$http){
+			var url = "doReservas";
+			$scope.buscarReservas = function() {
+				$http.get(url, {params:{fechaInicio : $scope.fechaInicio, fechaFin : $scope.fechaFin}})
+				.then(function(res){
+					$scope.reservas = res.data;
+				});
+			};
+			
+		});
+
+	</script>
+</body>
+</html>

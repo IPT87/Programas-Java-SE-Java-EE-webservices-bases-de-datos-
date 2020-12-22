@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Facturacion</title>
+
+<style>
+	table,tr,th,td {
+		border:1px solid blue;
+	}
+</style>
+
+</head>
+<body>
+	<center>
+		<h1>Facturacion</h1>
+			
+			<table>
+			<tr>
+				<th>Matricula</th>
+				<th>Facturado</th>
+			</tr>
+			
+				<tr th:each="fac: ${facturacion}">
+					<td th:text="${fac.matricula}"></td>
+					<td th:text="${fac.facturacion}"></td>	
+				</tr>
+				
+			</table>
+			
+		<br/>
+		
+		<br/><br/>
+		<a href="toMenuPropietario">Volver al menu</a>
+		
+		<br/><br/>
+	</center>
+</body>
+</html>
