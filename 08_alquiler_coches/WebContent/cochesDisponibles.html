@@ -29,7 +29,8 @@
 							<td>{{v.modelo}}</td>
 							<td>{{v.precioDia}}</td>
 							<td ng-if="v.diasDisponible > 0">{{v.diasDisponible}}</td>
-							<td ng-if="v.diasDisponible <= 0">&infin;</td>
+							<td ng-if="v.diasDisponible < 0">Fecha incorrecta</td>
+							<td ng-if="v.diasDisponible == 0">&infin;</td>
 							<td><input type="button" value="reservar" ng-click="elegirVehiculo(v.marca, v.modelo, v.color, v.potencia, v.diasDisponible, v.matricula, v.precioDia);"/></td>
 						</tr>
 				</table>
