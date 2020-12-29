@@ -3,21 +3,54 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Nuevo Vehiculo</title>
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!-- Popper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 </head>
 <body>
 	<fieldset>
-		<legend>Nuevo Vehiculo</legend>
-			<form action="doAltaVehiculo" method="POST">
-				Matricula <input type="text" name="matricula"/><br/><br/>
-				Marca <input type="text" name="marca"/><br/><br/>
-				Modelo <input type="text" name="modelo"/><br/><br/>
-				Color <input type="text" name="color"/><br/><br/>
-				Potencia <input type="number" name="potencia"/><br/><br/>
-				Precio/dia <input type="number" name="precioDia"/><br/><br/>
-				<input type="submit" value="Registrar" />
-			</form>
+		<legend style="padding-left: 5px">Nuevo Vehiculo</legend>
+			<div class="w-50 p-3">
+				<form action="doAltaVehiculo" method="POST">
+					<div class="form-group">
+						<label for="matricula"><b>Matricula</b></label>
+						<input type="text" class="form-control" name="matricula" id="matricula"/>
+					</div>
+					<div class="form-group">
+						<label for="marca"><b>Marca</b></label>
+						<input type="text" class="form-control" name="marca" id="marca"/>
+					</div>
+					<div class="form-group">
+						<label for="modelo"><b>Modelo</b></label>
+						<input type="text" class="form-control" name="modelo" id="modelo"/>
+					</div>
+					<div class="form-group">
+						<label for="color"><b>Color</b></label>
+						<input type="text" class="form-control" name="color" id="color"/>
+					</div>
+					<div class="form-group">
+						<label for="potencia"><b>Potencia</b></label>
+						<input type="number" class="form-control" name="potencia" id="potencia"/>
+					</div>
+					<div class="form-group">
+						<label for="precioDia"><b>Precio/dia</b></label>
+						<input type="number" class="form-control" name="precioDia" id="precioDia"/>
+					</div>
+					<button type="submit" class="btn btn-primary">Registrar</button>
+				</form>
+			</div>
 			<br/><br/>
-			<p align="left"><a href="toMenuPropietario">Volver</a></p>
+			<p align="left" style="padding-left: 5px"><a href="toMenu">&laquo; Volver</a></p>
 	</fieldset>
 </body>
 </html>

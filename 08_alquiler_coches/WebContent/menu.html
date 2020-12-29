@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+<meta charset="ISO-8859-1">
+<title>Alquiler de vehiculos</title>
+</head>
+<body>
+	<fieldset>
+		<legend>Menu</legend>
+			<div sec:authorize="hasRole('USER')">
+				<p>-<a href="toCochesDisponibles">Consultar coches disponibles</a></p>
+			</div>
+			<div sec:authorize="hasRole('ADMIN')">
+				<p>-<a href="toReservas">Reservas realizadas</a></p>
+				<p>-<a href="toNuevoVehiculo">Nuevo vehiculo</a></p>
+				<p>-<a href="doFacturacion">Facturacion</a></p>
+			</div>
+	</fieldset>
+</body>
+</html>

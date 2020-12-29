@@ -6,27 +6,37 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
 
-<style>
-	table,tr,th,td {
-		border:1px solid blue;
-	}
-</style>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!-- Popper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 </head>
 <body>
 	<div ng-app="reservasApp" ng-controller="reservasController">
-	
-		Fecha 1: <input type="date" ng-model="fechaInicio"/>&nbsp;
-		Fecha 2: <input type="date" ng-model="fechaFin"/>&nbsp;
-		<input type="button" value="Mostrar" ng-click="buscarReservas();"/>
-		<br/><br/>
-	
-			<table ng-show="reservas">
-				<tr>
-					<th>Marca</th>
-					<th>Modelo</th>
-					<th>Inicio</th>
-					<th>Fin</th>
-				</tr>
+		<div style="padding-left: 5px; padding-top: 5px;">
+			Fecha 1: <input type="date" ng-model="fechaInicio"/>&nbsp;
+			Fecha 2: <input type="date" ng-model="fechaFin"/>&nbsp;
+			<input type="button" value="Mostrar" ng-click="buscarReservas();"/>
+		</div>
+		<br/>
+		<div class="w-50 p-3">
+			<table ng-show="reservas" class="table table-striped">
+				<thead class="thead-dark">
+					<tr>
+						<th>Marca</th>
+						<th>Modelo</th>
+						<th>Inicio</th>
+						<th>Fin</th>
+					</tr>
+				</thead>
 				<tr ng-repeat="res in reservas">
 					<td>{{res.vehiculo.marca}}</td>
 					<td>{{res.vehiculo.modelo}}</td>	
@@ -34,9 +44,9 @@
 					<td>{{res.fechaFin}}</td>
 				</tr>
 			</table>
-
-		<br/><br/>
-		<a href="toMenuPropietario">Volver al menu</a>
+		</div>
+		<br/>
+		<a href="toMenu" style="padding-left: 5px">&laquo; Volver al menu</a>
 	</div>
 	
 	<script>

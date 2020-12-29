@@ -11,6 +11,7 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
+import org.thymeleaf.extras.springsecurity5.dialect.SpringSecurityDialect;
 import org.thymeleaf.spring5.SpringTemplateEngine;
 import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring5.view.ThymeleafViewResolver;
@@ -64,6 +65,7 @@ public class MvcConfig implements WebMvcConfigurer, ApplicationContextAware {
         // with specific cases when expressions in one template are reused
         // across different data types, so this flag is "false" by default
         // for safer backwards compatibility.
+        templateEngine.addDialect(new SpringSecurityDialect());
         templateEngine.setEnableSpringELCompiler(true);
         return templateEngine;
     }
@@ -80,8 +82,9 @@ public class MvcConfig implements WebMvcConfigurer, ApplicationContextAware {
 		registry.addViewController("/toCochesDisponibles").setViewName("cochesDisponibles");
 		registry.addViewController("/toReservas").setViewName("reservasRealizadas");
 		registry.addViewController("/toNuevoVehiculo").setViewName("nuevoVehiculo");
-		registry.addViewController("/toMenuUsuarios").setViewName("/menuUsuarios");
-		registry.addViewController("/toMenuPropietario").setViewName("/menuPropietario");
+		registry.addViewController("/toMenu").setViewName("/menu");
+		registry.addViewController("/").setViewName("menu");
+	    registry.addViewController("/login").setViewName("login");
 	}
 	
 	@Override

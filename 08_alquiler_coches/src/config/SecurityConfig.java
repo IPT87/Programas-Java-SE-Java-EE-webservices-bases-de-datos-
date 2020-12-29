@@ -20,7 +20,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
           .and()
         .withUser("user2")
           .password("{noop}user2")
-          .roles("USER", "ADMIN");
+          .roles("ADMIN");
 		
 		
 		/*la seguiente configuraci�n ser� para el caso de 
@@ -36,12 +36,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.csrf().disable()
+		  .authorizeRequests()
+	      .and()
+	      .exceptionHandling().accessDeniedPage("/accesoRestringido.html");
+		http.csrf().disable()
 		.authorizeRequests()
 		//solo los miembros del rol admin podr�n realizar altas
 		//y para buscar cuentas tendr�n que estar autenticados
 		.antMatchers("/menu.html").hasAnyRole("USER","ADMIN")
 		.antMatchers("/").hasAnyRole("USER","ADMIN")
-		.antMatchers("/doSeleccionAlumnoMatricular").hasRole("ADMIN")
+		.antMatchers("/toReservas").hasRole("ADMIN")
+		.antMatchers("/toNuevoVehiculo").hasRole("ADMIN")
+		.antMatchers("/doFacturacion").hasRole("ADMIN")
 		.and()
 		//.httpBasic()
 		.formLogin()
@@ -50,4 +56,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	       .usernameParameter("j_username").passwordParameter("j_password");
 	
 	}
+	
 }

@@ -6,49 +6,70 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
 
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!-- Popper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 </head>
 <body>
 	
-	<h1><b>Vehiculos disponibles</b></h1>
+	<h1 style="padding-left: 5px"><b>Vehiculos disponibles</b></h1>
 
-	<span ng-app="buscarVehiculosApp" ng-controller="buscarVehiculosController" >
-		Seleccione fecha: <input type="date" name="fechaInicio" ng-model="fechaInicio"/>&nbsp;
-		<input type="button" value="Mostrar" ng-click="buscarVehiculos();" />
-		<br/><br/>
+	<div ng-app="buscarVehiculosApp" ng-controller="buscarVehiculosController" >
+		<div style="padding-left: 5px">
+			Seleccione fecha: <input type="date" name="fechaInicio" ng-model="fechaInicio"/>&nbsp;
+			<button type="button" class="btn btn-primary" ng-click="buscarVehiculos();" >Mostrar</button>
+		</div>
 		
-		<span ng-show="tabla">
-				<table border="1">
+		<br/>
+		
+		<div ng-show="tabla">
+			<table class="table table-striped">
+				<thead class="thead-dark">
 					<tr>
 						<th>Marca</th>
 						<th>Modelo</th>
 						<th>Precio/dia</th>
 						<th>Dias disponibles</th>
+						<th></th>
 					</tr>
-						<tr ng-repeat="v in vehiculos">
-							<td>{{v.marca}}</td>
-							<td>{{v.modelo}}</td>
-							<td>{{v.precioDia}}</td>
-							<td ng-if="v.diasDisponible > 0">{{v.diasDisponible}}</td>
-							<td ng-if="v.diasDisponible < 0">Fecha incorrecta</td>
-							<td ng-if="v.diasDisponible == 0">&infin;</td>
-							<td><input type="button" value="reservar" ng-click="elegirVehiculo(v.marca, v.modelo, v.color, v.potencia, v.diasDisponible, v.matricula, v.precioDia);"/></td>
-						</tr>
-				</table>
-				<br/><br/>
-				<div ng-show="vehiculoElegido">
-					Marca: {{marca}}<br/>
-					Modelo: {{modelo}}<br/>
-					Color: {{color}}<br/>
-					Potencia: {{potencia}}<br/>
-					Total dias: <input type="number" name="totalDias" ng-model="diasSolicatados"/><br/>
-					Email: <input type="email" name="email" ng-model="email"/><br/><br/>
-					<input type="button" value="Reservar" ng-click="reservarVehiculo();"/>
-				</div>
-		</span>
-	</span>
-	<br/><br/>
-		
-	<a href="toMenuUsuarios">Volver</a>
+				</thead>
+					<tr ng-repeat="v in vehiculos">
+						<td>{{v.marca}}</td>
+						<td>{{v.modelo}}</td>
+						<td>{{v.precioDia}}</td>
+						<td ng-if="v.diasDisponible > 0">{{v.diasDisponible}}</td>
+						<td ng-if="v.diasDisponible < 0">Fecha incorrecta</td>
+						<td ng-if="v.diasDisponible == 0">&infin;</td>
+						<td><button type="button" class="btn btn-outline-success" ng-click="elegirVehiculo(v.marca, v.modelo, v.color, v.potencia, v.diasDisponible, v.matricula, v.precioDia);">reservar</button></td>
+					</tr>
+			</table>
+		</div>
+		<br/>
+		<div ng-show="vehiculoElegido" class="border border-success">
+			Marca: {{marca}}<br/>
+			Modelo: {{modelo}}<br/>
+			Color: {{color}}<br/>
+			Potencia: {{potencia}}<br/>
+			Total dias: <input type="number" name="totalDias" ng-model="diasSolicatados"/><br/>
+			Email: <input type="email" name="email" ng-model="email"/><br/><br/>
+			<input type="button" value="Reservar" ng-click="reservarVehiculo();"/>
+			<div class="alert alert-warning" ng-show="limiteDiasDisponibles">
+				<strong>Atencion!</strong> Superado el maximo de dias disponibles!
+			</div>
+		</div>
+	</div>
+	<br/>
+	
+	<a href="toMenu" style="padding-left: 5px">&laquo; Volver</a>
 	
 	<script>
 		var app = angular.module("buscarVehiculosApp", []);
@@ -76,18 +97,20 @@
 			var urlReserva = "doReservarVehiculo";
 			$scope.reservarVehiculo = function () {
 				if ($scope.diasDisponible == 0) {
+					$scope.limiteDiasDisponibles = false;
 					$http.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
 					$http.post(urlReserva, $httpParamSerializer({matricula : $scope.matricula, fechaInicio:$scope.fechaInicio, fechaFin : $scope.diasSolicatados, precioDia : $scope.precioDia, email : $scope.email})).then(function(res) {
 						document.location.href="confirmacion.html";
 					});
 				} else {
 					if ($scope.diasSolicatados <= $scope.diasDisponible) {
+						$scope.limiteDiasDisponibles = false;
 						$http.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
 						$http.post(urlReserva, $httpParamSerializer({matricula : $scope.matricula, fechaInicio:$scope.fechaInicio, fechaFin : $scope.diasSolicatados, precioDia : $scope.precioDia, email : $scope.email})).then(function(res) {
 							document.location.href="confirmacion.html";
 						});
 					} else {
-						alert("El maximo de dias disponibles es " + $scope.diasDisponible + "!");
+						$scope.limiteDiasDisponibles = true;
 					}
 				}
 				
