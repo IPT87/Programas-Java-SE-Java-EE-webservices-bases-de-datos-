@@ -18,52 +18,86 @@
 <!-- Latest compiled JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
+<script type="text/javascript">
+	function setFechaActual() {
+		var fechaActual = new Date();
+		var mes;
+		var dia;
+		
+		if ((fechaActual.getMonth() + 1) < 10) {
+			mes = "0" + (fechaActual.getMonth() + 1);
+		} else {
+			mes = (fechaActual.getMonth() + 1);
+		}
+		
+		if ((fechaActual.getDate() + 1) < 10) {
+			dia = "0" + fechaActual.getDate();
+		} else {
+			dia = fechaActual.getDate();
+		}
+		
+		var pattern = fechaActual.getFullYear() + "-" + mes + "-" + dia;
+		console.log(pattern);
+		document.getElementById("campoFecha").setAttribute("min", pattern);
+	}
+</script>
+
 </head>
-<body>
+<body onload="setFechaActual()">
 	
 	<h1 style="padding-left: 5px"><b>Vehiculos disponibles</b></h1>
 
 	<div ng-app="buscarVehiculosApp" ng-controller="buscarVehiculosController" >
 		<div style="padding-left: 5px">
-			Seleccione fecha: <input type="date" name="fechaInicio" ng-model="fechaInicio"/>&nbsp;
+			Seleccione fecha: <input type="date" id="campoFecha" min="setFechaActual()" name="fechaInicio" ng-model="fechaInicio"/>&nbsp;
 			<button type="button" class="btn btn-primary" ng-click="buscarVehiculos();" >Mostrar</button>
 		</div>
 		
 		<br/>
 		
-		<div ng-show="tabla">
-			<table class="table table-striped">
-				<thead class="thead-dark">
-					<tr>
-						<th>Marca</th>
-						<th>Modelo</th>
-						<th>Precio/dia</th>
-						<th>Dias disponibles</th>
-						<th></th>
-					</tr>
-				</thead>
-					<tr ng-repeat="v in vehiculos">
-						<td>{{v.marca}}</td>
-						<td>{{v.modelo}}</td>
-						<td>{{v.precioDia}}</td>
-						<td ng-if="v.diasDisponible > 0">{{v.diasDisponible}}</td>
-						<td ng-if="v.diasDisponible < 0">Fecha incorrecta</td>
-						<td ng-if="v.diasDisponible == 0">&infin;</td>
-						<td><button type="button" class="btn btn-outline-success" ng-click="elegirVehiculo(v.marca, v.modelo, v.color, v.potencia, v.diasDisponible, v.matricula, v.precioDia);">reservar</button></td>
-					</tr>
-			</table>
-		</div>
+		<div class="container">
+    		<div class="row">
+    			<div class="col-xs-0">
+					<div ng-show="tabla">
+						<table class="table table-striped">
+							<thead class="thead-dark">
+								<tr>
+									<th>Marca</th>
+									<th>Modelo</th>
+									<th>Precio/dia</th>
+									<th>Dias disponibles</th>
+									<th></th>
+								</tr>
+							</thead>
+								<tr ng-repeat="v in vehiculos">
+									<td>{{v.marca}}</td>
+									<td>{{v.modelo}}</td>
+									<td>{{v.precioDia}}</td>
+									<td ng-if="v.diasDisponible > 0">{{v.diasDisponible}}</td>
+									<td ng-if="v.diasDisponible == 0 || v.diasDisponible < 0">&infin;</td>
+									<td><button type="button" class="btn btn-outline-success" ng-click="elegirVehiculo(v.marca, v.modelo, v.color, v.potencia, v.diasDisponible, v.matricula, v.precioDia);">reservar</button></td>
+								</tr>
+						</table>
+					</div>
+				</div>
+		
 		<br/>
-		<div ng-show="vehiculoElegido" class="border border-success">
-			Marca: {{marca}}<br/>
-			Modelo: {{modelo}}<br/>
-			Color: {{color}}<br/>
-			Potencia: {{potencia}}<br/>
-			Total dias: <input type="number" name="totalDias" ng-model="diasSolicatados"/><br/>
-			Email: <input type="email" name="email" ng-model="email"/><br/><br/>
-			<input type="button" value="Reservar" ng-click="reservarVehiculo();"/>
-			<div class="alert alert-warning" ng-show="limiteDiasDisponibles">
-				<strong>Atencion!</strong> Superado el maximo de dias disponibles!
+		
+				<div class="col-xs-4" style="padding-left: 50px">
+					<div ng-show="vehiculoElegido">
+						<strong>Marca:</strong> <u>{{marca}}</u><br/><br/>
+						<strong>Modelo:</strong> <u>{{modelo}}</u><br/><br/>
+						<strong>Color:</strong> <u>{{color}}</u><br/><br/>
+						<strong>Potencia:</strong> <u>{{potencia}}</u><br/><br/>
+						<strong>Total dias:</strong> <input type="number" name="totalDias" ng-model="diasSolicatados"/><br/><br/>
+						<strong>Email:</strong> <input type="email" name="email" ng-model="email"/><br/><br/>
+						<input type="button" value="Reservar" ng-click="reservarVehiculo();"/>
+						<br/><br/>
+						<div class="alert alert-warning" ng-show="limiteDiasDisponibles">
+							<strong>Atencion!</strong> Superado el maximo de dias disponibles!
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>

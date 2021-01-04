@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +20,7 @@ import service.VehiculosService;
 public class CochesDisponiblesController {
 	@Autowired
 	VehiculosService service;
+	@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSX")
 	
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 	Date fechaInicio = null;

@@ -20,7 +20,7 @@ public class AltaVehiculoController {
 		
 		Vehiculo vehiculo = new Vehiculo(matricula, color, marca, modelo, potencia, precioDia);
 		service.nuevoVehiculo(vehiculo);
-		return "toMenuPropietario";
+		return "menu";
 		
 	}
 

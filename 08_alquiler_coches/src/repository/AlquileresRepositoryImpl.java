@@ -21,7 +21,7 @@ public class AlquileresRepositoryImpl implements AlquileresRepository {
 
 	@Override
 	public List<Alquiler> reservas(Date desde, Date hasta) {
-		return repository.findByFechaInicioBetween(desde, hasta);
+		return repository.alquileresPorFecha(desde, hasta);
 	}
 
 	@Override

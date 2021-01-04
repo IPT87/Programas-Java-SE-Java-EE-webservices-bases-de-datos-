@@ -21,7 +21,11 @@ public class AlquileresServiceImpl implements AlquileresService {
 
 	@Override
 	public List<Alquiler> reservas(Date desde, Date hasta) {
-		return repository.reservas(desde, hasta);
+		Date inicio = new Date(desde.getTime() + (3_600_000 * 24));
+		Date fin = new Date(hasta.getTime() + (3_600_000 * 24));
+		System.out.println(inicio);
+		System.out.println(fin);
+		return repository.reservas(inicio, fin);
 	}
 
 	@Override
