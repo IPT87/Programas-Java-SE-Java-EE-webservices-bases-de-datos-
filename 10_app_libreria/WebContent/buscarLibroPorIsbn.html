@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Buscar libro por Isbn</title>
+
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+
+</head>
+<body>
+	<div ng-app="buscarLibrosApp" ng-controller="buscarLibrosController" >
+		<fieldset>
+			<legend>Buscar libro</legend>
+					
+				<label for="isbn"><b>Isbn</b></label>
+				<input type="text" name="isbn" id="isbn" ng-model="isbn"/>
+					
+				<button type="button" ng-click="buscarLibro();">Buscar</button>
+				<br/><br/>
+				
+				<div ng-show="datosLibro">
+					<label for="titulo"><b>Titulo</b></label>
+					<input type="text" name="titulo" id="titulo" ng-model="libro.titulo"/>
+					<br/><br/>
+					<label for="tematica"><b>Tematica</b></label>
+					<input type="text" name="tematica" id="tematica" ng-model="libro.tematica"/>
+					<br/><br/>
+					<button type="button" ng-click="actualizarLibros();">Actualizar</button>
+				</div>
+					
+				<br/><br/>
+				<p align="left"><a href="toMenu">&laquo; Volver</a></p>
+		</fieldset>
+	</div>
+	
+	<script>
+		var app = angular.module("buscarLibrosApp", []);
+		app.controller("buscarLibrosController", function($scope, $http, $httpParamSerializer) {
+			$scope.datosLibro = false;
+			var url = "libroPorIsbn";
+			$scope.buscarLibro = function () {
+				$http.get(url, {params: {isbn:$scope.isbn}}).then(function(res) {
+					$scope.libro = res.data;
+					$scope.datosLibro = true;
+				});
+			};
+			
+			var urlActualizar = "actualizarLibro";
+			$scope.actualizarLibros = function () {
+				$http.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
+				$http.post(urlActualizar, $httpParamSerializer({isbn:$scope.isbn, tematica:$scope.libro.tematica, titulo:$scope.libro.titulo})).then(function(res) {
+					
+				});
+			};
+		});
+	</script>
+	
+</body>
+</html>

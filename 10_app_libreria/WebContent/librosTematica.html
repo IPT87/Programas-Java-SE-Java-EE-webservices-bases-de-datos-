@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Libros por tema</title>
+
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+
+</head>
+<body>
+	<div ng-app="buscarLibrosApp" ng-controller="buscarLibrosController" >
+	
+		<fieldset>
+			<legend>Buscar libros</legend>
+				<label for="tema"><b>Introduce tema</b></label>
+				<input type="text" name="tema" id="tema" ng-model="tema"/>
+						
+				<button type="button" ng-click="buscarLibros();">Ver libros</button>
+	
+	<br/><br/>
+	<div ng-show="libros">
+		<strong>Libros del tema</strong>
+		<br/><br/>
+
+			<table border="1">
+				<tr>
+					<th>Titulo</th>
+					<th>Tema</th>
+					<th>Isbn</th>
+					<th></th>
+				</tr>
+							
+					<tr ng-repeat="l in libros">
+						<td>{{l.titulo}}</td>
+						<td>{{l.tematica}}</td>
+						<td>{{l.isbn}}</td>
+						<td><button type="button" ng-click="eliminarLibro(l.isbn, l.tematica);">Eliminar</button></td>
+					</tr>
+				
+			</table>
+		</div>
+		</fieldset>
+		
+		<br/><br/>
+		<p align="left"><a href="toMenu">&laquo; Volver</a></p>
+			
+	</div>
+	
+	<script>
+		var app = angular.module("buscarLibrosApp", []);
+		app.controller("buscarLibrosController", function($scope, $http, $httpParamSerializer) {
+			
+			var url = "eliminarLibro";
+			$scope.eliminarLibro = function (isbn, tematica) {
+				$http.get(url, {params: {isbn:isbn, tematica:tematica}}).then(function(res) {
+					$scope.buscarLibros();
+				});
+			};
+			
+			var urlBuscar = "librosPorTematica";
+			$scope.buscarLibros = function () {	
+				$http.get(urlBuscar, {params: {tema:$scope.tema}}).then(function(res) {
+					$scope.libros = res.data;
+				});
+			};
+		});
+	</script>
+</body>
+</html>
