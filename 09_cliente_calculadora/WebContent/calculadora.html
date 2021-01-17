@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+<style>
+table, th, td {
+	border: 1px solid GRAY;
+	border-collapse: collapse;
+}
+a{
+	color:LIGHTSLATEGRAY;
+}
+h1{
+	color:DARKSALMON;
+}
+legend{
+	color:INDIANRED;
+}
+</style>
+<meta charset="ISO-8859-1">
+<title>Calculadora</title>
+</head>
+<body>
+	<fieldset>
+	<legend>Calculadora</legend>
+		<form action="sumar" method="post">
+			<label >Numero 1:</label><br>
+			<input type="number" name="n1" required="required"><br>
+			<label >Numero 2</label><br>
+			<input type="number" name="n2" required="required"><br>
+			
+			<input type="submit" value="Sumar">			
+		</form>
+	</fieldset>
+	<span th:text="${resultado}"></span>
+</body>
+</html>
