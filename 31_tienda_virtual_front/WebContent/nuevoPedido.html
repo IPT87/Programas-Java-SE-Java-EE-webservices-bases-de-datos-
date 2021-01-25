@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Tienda virtual</title>
+
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+
+</head>
+<body>
+	<div ng-app="tiendaApp" ng-controller="tiendaController" ng-init="recuperarProductos()">
+		<label>Seleccione producto</label>
+			
+			<select ng-model="productoSeleccionado">
+				<option ng-repeat="producto in productos" ng-value="producto">
+					{{producto.producto}}
+				</option>
+			</select>
+			
+			<br/><br/>
+			
+			Unidades:<input type="text" ng-model="unidades"/>
+			
+			<br/><br/>
+			
+			<input type="button" value="Guardar pedido" ng-click="guardar();"/>
+			
+			<br/><br/>
+			
+			<a href="pedidos.html">Ver pedidos</a>
+			
+	</div>
+	
+	<script>
+		var app = angular.module("tiendaApp", []);
+		app.controller("tiendaController", function($scope, $http) {
+			
+			// let urlProductos = "http://localhost:9000/";
+			let urlProductosZuul = "http://localhost:8090/sproductos/";
+			
+			$scope.recuperarProductos = function () {
+				$http.get(urlProductosZuul + "productos").then(function(res) {
+					$scope.productos = res.data;
+				});
+			};
+			
+			// let urlPedido = "http://localhost:8000/";
+			let urlPedidoZuul = "http://localhost:8090/spedidos/";
+			
+			$scope.guardar = function () {
+				
+				$scope.codigoProducto = $scope.productoSeleccionado.codigoProducto;
+
+				$http.post(urlPedidoZuul + "pedido", {codigoProducto : $scope.codigoProducto, unidades : $scope.unidades}).then(function(res) {
+					
+				});
+			};
+		});
+	</script>
+	
+</body>
+</html>

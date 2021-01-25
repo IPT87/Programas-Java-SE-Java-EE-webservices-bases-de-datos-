@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Pedidos</title>
+
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+	<div ng-app="pedidosApp" ng-controller="pedidosController" ng-init="recuperarPedidos()">
+		
+		<div class="container">
+			<div style="padding-left: 10px; padding-top: 10px;">
+				<table style="width:430px;" class="table table-striped table-bordered table-hover">
+									<thead class="thead-dark">
+										<tr>
+											<th>Codigo</th>
+											<th>Total</th>
+											<th>Fecha</th>
+										</tr>
+									</thead>
+										<tr ng-repeat="pedido in pedidos">
+											<td>{{pedido.codigoProducto}}</td>
+											<td>{{pedido.total}}</td>
+											<td>{{pedido.fechaPedido}}</td>
+										</tr>
+								</table>
+			</div>
+		</div>
+	</div>
+	
+	<script>
+		var app = angular.module("pedidosApp", []);
+		app.controller("pedidosController", function($scope, $http) {
+			
+			// let urlPedido = "http://localhost:8000/";
+			let urlPedidoZuul = "http://localhost:8090/spedidos/";
+			
+			$scope.recuperarPedidos = function () {
+				$http.get(urlPedidoZuul + "pedidos").then(function(res) {
+					$scope.pedidos = res.data;
+				});
+			};
+		});
+	</script>
+	
+</body>
+</html>
