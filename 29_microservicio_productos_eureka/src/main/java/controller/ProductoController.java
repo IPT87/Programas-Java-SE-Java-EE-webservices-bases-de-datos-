@@ -32,7 +32,7 @@ public class ProductoController {
 	}
 	
 	@PutMapping(value = "producto/{codigo}/{unidades}")
-	public void modificar(@PathVariable("codigo") int codigo, @PathVariable("codigo") int unidades) {
+	public void modificar(@PathVariable("codigo") int codigo, @PathVariable("unidades") int unidades) {
 		service.actualizarStockProducto(codigo, unidades);
 	}
 	

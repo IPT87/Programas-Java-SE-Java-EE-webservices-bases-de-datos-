@@ -3,6 +3,7 @@ package controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,6 +21,8 @@ import service.ProductoService;
 public class ProductoController {
 	@Autowired
 	ProductoService service;
+	@Value("${eureka.instance.instance-id}")
+	String idInstancia;
 	
 	@GetMapping(value = "productos", produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<Producto> productos() {
@@ -28,11 +31,12 @@ public class ProductoController {
 	
 	@GetMapping(value = "precio/{codigo}", produces = MediaType.TEXT_PLAIN_VALUE)
 	public String precio(@PathVariable("codigo") int codigo) {
+		System.out.println("Instancia en ejecucion" + idInstancia);
 		return service.precioProducto(codigo) + "";
 	}
 	
 	@PutMapping(value = "producto/{codigo}/{unidades}")
-	public void modificar(@PathVariable("codigo") int codigo, @PathVariable("codigo") int unidades) {
+	public void modificar(@PathVariable("codigo") int codigo, @PathVariable("unidades") int unidades) {
 		service.actualizarStockProducto(codigo, unidades);
 	}
 	
