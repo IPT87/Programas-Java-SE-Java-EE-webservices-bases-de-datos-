@@ -1,0 +1,26 @@
+server:
+  port: 8090
+  
+spring:
+  cloud:
+   gateway: 
+    routes:
+      - id: ruta-productos
+          #lb:// cuando se va a acceder a través de Eureka
+        uri: lb://servicio-cliente-productos #http://localhost:9000
+        predicates:
+          - Path=/sproductos/**
+        filters:
+          - RewritePath=/sproductos/*, /
+      - id: ruta-pedidos
+        uri: lb://servicio-cliente-pedidos #http://localhost:8000
+        predicates:
+          - Path=/spedidos/**
+        filters:
+          - RewritePath=/spedidos/*, /
+          
+eureka:                  
+ client:
+  register-with-eureka: false
+  serviceUrl:
+   defaultZone: http://localhost:8761/eureka
