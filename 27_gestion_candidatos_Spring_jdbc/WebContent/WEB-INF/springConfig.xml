@@ -14,7 +14,7 @@
 	<bean id="data" name="data"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="url"
-			value="jdbc:mysql://localhost:3306/empresa?serverTimezone=UTC">
+			value="jdbc:mysql://192.168.1.42:3306/empresa?serverTimezone=UTC">
 		</property>
 		<property name="driverClassName"
 			value="com.mysql.cj.jdbc.Driver">
@@ -35,7 +35,7 @@
 	</bean>
 	
 	<!-- datasource del servidor de app -->
-	<jee:jndi-lookup jndi-name="refempresa" id="data3"/>
+	<!--<jee:jndi-lookup jndi-name="refempresa" id="data3"/>-->
 	
 	
 	<bean id="template"

@@ -27,7 +27,7 @@ public class PaisesServiceImpl implements PaisesService {
 		List<Pais> paises = new ArrayList<>();
 		ArrayNode array;
 		try {
-			//obtenemos ArrayJoson con los datos de la respuesta
+			//obtenemos ArrayJson con los datos de la respuesta
 			array = (ArrayNode)maper.readTree(respuesta);			
 			for(Object ob:array) {
 				//obtenemos el objeto Json y extraemos
