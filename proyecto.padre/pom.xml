@@ -6,7 +6,7 @@
   <packaging>pom</packaging>
   <name>proyecto_maven_padre</name>
   <properties>
-  	<spring.version>5.2.9.RELEASE</spring.version>
+  	<spring.version>6.0.0</spring.version>
   	<hibernate.version>5.4.18.Final</hibernate.version>
   	<mysql.version>8.0.19</mysql.version>
   </properties>
